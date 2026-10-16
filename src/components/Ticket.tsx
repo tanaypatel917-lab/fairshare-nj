@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { daysUntil, fmtDate, liveStatus, money, type Match } from "@/lib/listings";
+import { daysUntil, liveStatus, money, type Match } from "@/lib/listings";
 
 const tone: Record<string, string> = { orange: "bg-orange", lime: "bg-lime", sky: "bg-sky", mute: "bg-paper2 text-mute" };
 
@@ -24,7 +24,7 @@ export function Ticket({ m, index }: { m: Match; index: number }) {
           <div className="mt-3 grid grid-cols-3 gap-2 border-t-2 border-ink pt-3">
             <div><div className="font-mono text-[10px] uppercase text-mute">Units</div><div className="font-display font-bold text-xl num">{l.totalUnits ?? "—"}</div></div>
             <div><div className="font-mono text-[10px] uppercase text-mute">From</div><div className="font-display font-bold text-xl num">{cheapest ? (l.type === "rent" ? `${money(cheapest)}/mo` : money(cheapest)) : "TBD"}</div></div>
-            <div><div className="font-mono text-[10px] uppercase text-mute">Deadline</div><div className="font-display font-bold text-[17px] leading-tight num">{fmtDate(l.deadline)}</div></div>
+            <div><div className="font-mono text-[10px] uppercase text-mute">Deadline</div><div className="font-display font-bold text-[17px] leading-tight num">{l.deadline ? new Date(l.deadline + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "Rolling"}</div></div>
           </div>
           {!m.qualifies && m.reasons[0] && <p className="mt-2 font-mono text-[11px] text-orange">✕ {m.reasons[0]}</p>}
           {m.qualifies && m.matchingUnits.length > 0 && <p className="mt-2 font-mono text-[11px]">✓ {m.matchingUnits.map((u) => `${u.bedrooms}BR`).join(" · ")} match your household</p>}

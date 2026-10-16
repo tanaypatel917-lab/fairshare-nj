@@ -14,7 +14,8 @@ export function CountUp({ to, prefix = "", suffix = "", ms = 1100, className = "
       raf = requestAnimationFrame(tick);
     }, { threshold: 0.4 });
     io.observe(el);
-    return () => { io.disconnect(); cancelAnimationFrame(raf); };
+    const fallback = setTimeout(() => { if (!start) { io.disconnect(); setV(to); } }, 2500);
+    return () => { io.disconnect(); cancelAnimationFrame(raf); clearTimeout(fallback); };
   }, [to, ms]);
   return <span ref={ref} className={`num ${className}`}>{prefix}{v.toLocaleString("en-US")}{suffix}</span>;
 }
