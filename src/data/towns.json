@@ -1,0 +1,9 @@
+{"source":"https://nj.gov/dca/dlps/4th_Round_Numbers.shtml","note":"DCA non-binding Round 4 (2025-2035) calculations; present = rehabilitation need, prospective = new construction. Values marked verified were read from municipal resolutions; others to be filled from the DCA table.",
+ "towns":[
+  {"name":"Monroe Township","county":"Middlesex","present":76,"prospective":378,"planned":253,"verified":true,"source":"https://www.monroetwp.com/images/R-1-2025-047.pdf"},
+  {"name":"South Brunswick","county":"Middlesex","present":null,"prospective":null,"lotteryUnits":73,"verified":false},
+  {"name":"Old Bridge","county":"Middlesex","present":null,"prospective":null,"lotteryUnits":12,"verified":false},
+  {"name":"Princeton","county":"Mercer","present":null,"prospective":null,"lotteryUnits":null,"verified":false},
+  {"name":"Trenton","county":"Mercer","present":null,"prospective":null,"lotteryUnits":null,"verified":false},
+  {"name":"Plainfield","county":"Union","present":null,"prospective":null,"lotteryUnits":null,"verified":false}
+ ]}
