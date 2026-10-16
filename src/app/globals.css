@@ -72,3 +72,19 @@ h1, h2, h3, .display { @apply font-display; letter-spacing: -0.02em; }
 .leaflet-bar a { border-radius: 0 !important; color: #141414; font-weight: 900; }
 
 .no-scrollbar::-webkit-scrollbar{display:none}.no-scrollbar{scrollbar-width:none}
+
+/* motion */
+.page-enter { animation: pageIn .45s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes pageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1); }
+.reveal.is-in { opacity: 1; transform: none; }
+.float { animation: floaty 5s ease-in-out infinite; }
+@keyframes floaty { 0%,100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(-2deg) translateY(-8px); } }
+.stamp-in { animation: stampIn .5s cubic-bezier(.2,1.4,.3,1) .6s both; }
+@keyframes stampIn { from { opacity: 0; transform: scale(2.2) rotate(-18deg); } to { opacity: 1; transform: scale(1) rotate(-8deg); } }
+::selection { background: #FF5A1F; color: #F4EFE6; }
+:focus-visible { outline: 3px solid #FF5A1F; outline-offset: 2px; }
+.grain::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: .06; mix-blend-mode: multiply; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.ticket-edge { -webkit-mask: radial-gradient(circle at 0 50%, transparent 9px, #000 9.5px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, transparent 9px, #000 9.5px) right / 51% 100% no-repeat; mask: radial-gradient(circle at 0 50%, transparent 9px, #000 9.5px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, transparent 9px, #000 9.5px) right / 51% 100% no-repeat; }
+@media (prefers-reduced-motion: reduce) { .page-enter, .float, .stamp-in, .reveal { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; } }
+@media (hover:hover) { .lift { transition: transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .18s; } .lift:hover { transform: translate(-2px,-2px); box-shadow: 8px 8px 0 0 #141414; } }

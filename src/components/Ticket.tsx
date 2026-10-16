@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { fmtDate, liveStatus, money, type Match } from "@/lib/listings";
+import { daysUntil, fmtDate, liveStatus, money, type Match } from "@/lib/listings";
 
 const tone: Record<string, string> = { orange: "bg-orange", lime: "bg-lime", sky: "bg-sky", mute: "bg-paper2 text-mute" };
 
@@ -8,7 +8,8 @@ export function Ticket({ m, index }: { m: Match; index: number }) {
   const l = m.listing; const s = liveStatus(l);
   const cheapest = l.units.map((u) => u.rentFrom ?? u.priceFrom ?? null).filter((x): x is number => x != null).sort((a, b) => a - b)[0];
   return (
-    <Link href={`/listing/${l.id}`} className={`block border-3 border-ink bg-paper shadow-hard transition-transform active:translate-x-[3px] active:translate-y-[3px] active:shadow-hardSm animate-rise ${!m.qualifies ? "opacity-60" : ""}`} style={{ animationDelay: `${index * 70}ms` }}>
+    <Link href={`/listing/${l.id}`} className={`relative block border-3 border-ink bg-paper shadow-hard lift transition-transform active:translate-x-[3px] active:translate-y-[3px] active:shadow-hardSm animate-rise ${!m.qualifies ? "opacity-60" : ""}`} style={{ animationDelay: `${index * 70}ms` }}>
+      {s.tone === "orange" && l.deadline && <span className="stamp stamp-in absolute -top-3 right-3 bg-orange text-paper border-ink text-[11px] z-10">{daysUntil(l.deadline)} days left</span>}
       <div className="flex items-stretch">
         <div className="w-11 shrink-0 border-r-3 border-dashed border-ink flex items-center justify-center">
           <span className="font-mono text-[11px] tracking-[0.2em] [writing-mode:vertical-rl] rotate-180 uppercase">No. {String(index + 1).padStart(3, "0")} · {l.county}</span>
