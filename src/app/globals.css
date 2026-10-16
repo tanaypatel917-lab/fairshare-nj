@@ -3,25 +3,63 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #f4efe6;
+  --ink: #141414;
+  --orange: #ff5a1f;
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html { -webkit-text-size-adjust: 100%; }
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-paper text-ink font-body antialiased;
+  background-image: radial-gradient(rgba(20, 20, 20, 0.07) 1px, transparent 1px);
+  background-size: 14px 14px;
+  overscroll-behavior-y: none;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+h1, h2, h3, .display { @apply font-display; letter-spacing: -0.02em; }
+
+/* raffle-ticket perforation */
+.perf {
+  position: relative;
+}
+.perf::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -1px;
+  border-top: 3px dashed var(--ink);
+}
+.ticket-notch {
+  --r: 14px;
+  -webkit-mask:
+    radial-gradient(circle at 0 var(--notch-y, 50%), transparent var(--r), #000 calc(var(--r) + 0.5px)),
+    radial-gradient(circle at 100% var(--notch-y, 50%), transparent var(--r), #000 calc(var(--r) + 0.5px));
+  -webkit-mask-composite: source-in;
+  mask:
+    radial-gradient(circle at 0 var(--notch-y, 50%), transparent var(--r), #000 calc(var(--r) + 0.5px)),
+    radial-gradient(circle at 100% var(--notch-y, 50%), transparent var(--r), #000 calc(var(--r) + 0.5px));
+  mask-composite: intersect;
+}
+
+.stamp {
+  @apply inline-block border-3 border-ink px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.14em];
+  transform: rotate(-2deg);
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 border-3 border-ink bg-ink text-paper font-display font-bold uppercase tracking-wide px-5 py-3 shadow-hard transition-transform duration-150 active:translate-x-[3px] active:translate-y-[3px] active:shadow-hardSm select-none;
+}
+.btn-light { @apply bg-paper text-ink; }
+.btn-orange { @apply bg-orange text-ink; }
+
+.field {
+  @apply w-full border-3 border-ink bg-paper px-4 py-3 font-display text-2xl outline-none focus:bg-white;
+}
+
+.num { font-variant-numeric: tabular-nums; }
+
+::selection { background: var(--orange); color: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

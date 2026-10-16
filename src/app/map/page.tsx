@@ -1,0 +1,1 @@
+export default function Page() { return <div className="px-5 pt-16"><h1 className="font-display font-black text-4xl capitalize">map</h1><p className="font-serif italic text-lg text-mute mt-2">Coming next.</p></div>; }
