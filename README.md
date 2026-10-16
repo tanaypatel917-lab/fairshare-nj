@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FairShare NJ
 
-## Getting Started
+One radar for every affordable-housing lottery in New Jersey's 12th Congressional District.
+Built for the 2026 Congressional App Challenge (NJ-12) by students from Monroe Township, NJ.
 
-First, run the development server:
+**What it does**
+- Runs the official NJHMFA **UHAC 2025** income-limit table (parsed from the state PDF into versioned JSON, unit-tested) to tell a household its tier — very-low / low / moderate — and show the math.
+- Aggregates lotteries and waiting lists across administrative agents (CGP&H, Piazza, Princeton Community Housing) into one feed with deadlines, rents, bedroom counts and official apply links. FairShare never submits applications.
+- Calendar alerts (`.ics`, 7-day and 1-day reminders) for starred lotteries.
+- Document checklist in English, Spanish, Hindi and Gujarati with on-device progress.
+- Leaflet map of listings against the NJ Transit Northeast Corridor.
+- Town scoreboard: DCA Fourth Round (2025–2035) obligations for all 32 NJ-12 municipalities vs. units that have actually reached a lottery.
 
+Everything is local-first: no backend, no account, nothing leaves the phone. Installs as a PWA.
+
+## Run
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npx vitest run     # eligibility engine tests
+npm run lint && npx tsc --noEmit && npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Data
+| Data | Source |
+| --- | --- |
+| Income tiers | `src/data/uhac2025.json` ← NJHMFA UHAC income limits PDF (effective 2025) |
+| Town obligations | `src/data/towns.json` ← NJ DCA `FourthRoundCalculation_Workbook.xlsx`, Final Summary sheet |
+| Lotteries | `src/data/listings.json` ← agent postings + local reporting; each record carries `sources[]` and `lastChecked` |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Stack
+Next.js 14 (App Router, static export-ready) · TypeScript · Tailwind · Leaflet · Vitest.
+Type: Cabinet Grotesk, General Sans, Instrument Serif, IBM Plex Mono (Fontshare / Google, self-hosted).
