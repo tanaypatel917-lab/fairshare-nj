@@ -50,8 +50,8 @@ export function Detail({ l }: { l: Listing }) {
       <div className="px-5 mt-6 grid gap-3">
         <a href={l.applyUrl} target="_blank" rel="noreferrer" className="btn btn-orange text-lg py-4">Apply on the agent&apos;s site ↗</a>
         <div className="grid grid-cols-2 gap-3">
-          <button onClick={() => downloadIcs(l)} className="btn btn-light">+ Calendar alert</button>
-          <Link href="/checklist" className="btn btn-light">Document list</Link>
+          <button onClick={() => downloadIcs(l)} className="btn btn-light text-sm">+ Calendar alert</button>
+          <Link href="/checklist" className="btn btn-light text-sm">Document list</Link>
         </div>
       </div>
 

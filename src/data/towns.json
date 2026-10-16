@@ -1,9 +1,330 @@
-{"source":"https://nj.gov/dca/dlps/4th_Round_Numbers.shtml","note":"DCA non-binding Round 4 (2025-2035) calculations; present = rehabilitation need, prospective = new construction. Values marked verified were read from municipal resolutions; others to be filled from the DCA table.",
- "towns":[
-  {"name":"Monroe Township","county":"Middlesex","present":76,"prospective":378,"planned":253,"verified":true,"source":"https://www.monroetwp.com/images/R-1-2025-047.pdf"},
-  {"name":"South Brunswick","county":"Middlesex","present":null,"prospective":null,"lotteryUnits":73,"verified":false},
-  {"name":"Old Bridge","county":"Middlesex","present":null,"prospective":null,"lotteryUnits":12,"verified":false},
-  {"name":"Princeton","county":"Mercer","present":null,"prospective":null,"lotteryUnits":null,"verified":false},
-  {"name":"Trenton","county":"Mercer","present":null,"prospective":null,"lotteryUnits":null,"verified":false},
-  {"name":"Plainfield","county":"Union","present":null,"prospective":null,"lotteryUnits":null,"verified":false}
- ]}
+{
+ "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx",
+ "page": "https://nj.gov/dca/dlps/4th_Round_Numbers.shtml",
+ "asOf": "DCA Fourth Round (2025–2035) Calculation Workbook, Final Summary sheet, read 2026-10-16",
+ "note": "DCA non-binding Fourth Round (2025–2035) calculations. Present need = existing deficient units to rehabilitate; prospective need = new affordable units to plan for (after the 1,000-unit / 20% cap). Towns may adopt different numbers by resolution or court settlement; Trenton and Plainfield are Qualified Urban Aid municipalities with no prospective obligation.",
+ "towns": [
+  {
+   "name": "South Brunswick Township",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 132,
+   "prospective": 959,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Monroe Township",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 76,
+   "prospective": 751,
+   "planned": 253,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx",
+   "note": "Township resolution R-1-2025-047 adopted a lower prospective figure (reported 378) and the 2026 plan negotiated with Fair Share Housing Center is 253 new units; DCA workbook figure shown here. Middlesex County Monroe (monroetwp.com), not Gloucester County Monroe.",
+   "planSource": "https://www.monroetwp.com/images/R-1-2025-047.pdf"
+  },
+  {
+   "name": "Old Bridge Township",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 318,
+   "prospective": 685,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Cranbury Township",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 0,
+   "prospective": 314,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "East Brunswick Township",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 170,
+   "prospective": 314,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Plainsboro Township",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 53,
+   "prospective": 309,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "North Brunswick Township",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 130,
+   "prospective": 239,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Middlesex Borough",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 14,
+   "prospective": 81,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "South River Borough",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 66,
+   "prospective": 62,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Milltown Borough",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 13,
+   "prospective": 51,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Spotswood Borough",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 7,
+   "prospective": 42,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Jamesburg Borough",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 19,
+   "prospective": 38,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Helmetta Borough",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 3,
+   "prospective": 24,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Dunellen Borough",
+   "county": "Middlesex",
+   "region": 3,
+   "present": 79,
+   "prospective": 23,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "West Windsor Township",
+   "county": "Mercer",
+   "region": 4,
+   "present": 61,
+   "prospective": 661,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Hopewell Township",
+   "county": "Mercer",
+   "region": 4,
+   "present": 8,
+   "prospective": 543,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Ewing Township",
+   "county": "Mercer",
+   "region": 4,
+   "present": 99,
+   "prospective": 319,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Princeton",
+   "county": "Mercer",
+   "region": 4,
+   "present": 60,
+   "prospective": 276,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Pennington Borough",
+   "county": "Mercer",
+   "region": 4,
+   "present": 4,
+   "prospective": 58,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Hopewell Borough",
+   "county": "Mercer",
+   "region": 4,
+   "present": 0,
+   "prospective": 39,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Trenton",
+   "county": "Mercer",
+   "region": 4,
+   "present": 1084,
+   "prospective": 0,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Franklin Township",
+   "county": "Somerset",
+   "region": 3,
+   "present": 268,
+   "prospective": 714,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Hillsborough Township",
+   "county": "Somerset",
+   "region": 3,
+   "present": 111,
+   "prospective": 565,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Bridgewater Township",
+   "county": "Somerset",
+   "region": 3,
+   "present": 130,
+   "prospective": 474,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Montgomery Township",
+   "county": "Somerset",
+   "region": 3,
+   "present": 73,
+   "prospective": 260,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "North Plainfield Borough",
+   "county": "Somerset",
+   "region": 3,
+   "present": 427,
+   "prospective": 64,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Rocky Hill Borough",
+   "county": "Somerset",
+   "region": 3,
+   "present": 4,
+   "prospective": 37,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Manville Borough",
+   "county": "Somerset",
+   "region": 3,
+   "present": 36,
+   "prospective": 34,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Millstone Borough",
+   "county": "Somerset",
+   "region": 3,
+   "present": 0,
+   "prospective": 33,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Bound Brook Borough",
+   "county": "Somerset",
+   "region": 3,
+   "present": 91,
+   "prospective": 31,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "South Bound Brook Borough",
+   "county": "Somerset",
+   "region": 3,
+   "present": 67,
+   "prospective": 22,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  },
+  {
+   "name": "Plainfield",
+   "county": "Union",
+   "region": 2,
+   "present": 1346,
+   "prospective": 0,
+   "planned": null,
+   "verified": true,
+   "source": "https://nj.gov/dca/dlps/pdf/FourthRoundCalculation_Workbook.xlsx"
+  }
+ ]
+}

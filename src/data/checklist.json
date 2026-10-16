@@ -1,0 +1,30 @@
+{
+ "langs": {"en":"English","es":"Español","hi":"हिन्दी","gu":"ગુજરાતી"},
+ "title": {"en":"Documents agents ask for","es":"Documentos que piden los agentes","hi":"एजेंट जो दस्तावेज़ मांगते हैं","gu":"એજન્ટો જે દસ્તાવેજો માંગે છે"},
+ "intro": {"en":"Every NJ affordable-housing agent verifies income the same way under UHAC. Gather these before the lottery so you can answer the certification letter within its 7–14 day window.","es":"Todos los agentes de vivienda asequible de NJ verifican los ingresos de la misma forma bajo UHAC. Reúna esto antes del sorteo para responder la carta de certificación dentro de su plazo de 7 a 14 días.","hi":"NJ के सभी किफायती आवास एजेंट UHAC के तहत आय की जाँच एक ही तरह करते हैं। लॉटरी से पहले ये इकट्ठा करें ताकि आप 7–14 दिन की समय-सीमा में प्रमाणन पत्र का जवाब दे सकें।","gu":"NJ ના બધા સસ્તા આવાસ એજન્ટો UHAC હેઠળ એક જ રીતે આવક ચકાસે છે. લોટરી પહેલાં આ ભેગું કરો જેથી તમે 7–14 દિવસની મુદતમાં પ્રમાણપત્ર પત્રનો જવાબ આપી શકો."},
+ "groups": [
+  {"id":"income","name":{"en":"Income","es":"Ingresos","hi":"आय","gu":"આવક"},"items":[
+   {"id":"paystubs","en":"4–6 most recent consecutive pay stubs for every working adult","es":"4–6 talones de pago recientes y consecutivos de cada adulto que trabaja","hi":"हर कामकाजी वयस्क की हाल की 4–6 लगातार पे-स्लिप","gu":"દરેક કામ કરતા પુખ્ત માટે તાજેતરની 4–6 સળંગ પે-સ્લિપ"},
+   {"id":"tax","en":"Last 3 years of federal tax returns (1040) with W-2s/1099s","es":"Declaraciones de impuestos federales de los últimos 3 años (1040) con W-2/1099","hi":"पिछले 3 साल के फ़ेडरल टैक्स रिटर्न (1040) और W-2/1099","gu":"છેલ્લા 3 વર્ષના ફેડરલ ટેક્સ રિટર્ન (1040) અને W-2/1099"},
+   {"id":"benefits","en":"Social Security, SSI, pension, unemployment or child-support award letters","es":"Cartas de Seguro Social, SSI, pensión, desempleo o manutención infantil","hi":"सोशल सिक्योरिटी, SSI, पेंशन, बेरोज़गारी या चाइल्ड-सपोर्ट के पत्र","gu":"સોશિયલ સિક્યોરિટી, SSI, પેન્શન, બેરોજગારી અથવા ચાઇલ્ડ-સપોર્ટના પત્રો"},
+   {"id":"self","en":"If self-employed: year-to-date profit & loss statement","es":"Si trabaja por cuenta propia: estado de ganancias y pérdidas del año","hi":"स्व-रोज़गार हैं तो: इस साल का लाभ-हानि विवरण","gu":"સ્વ-રોજગાર હોવ તો: વર્ષનું નફા-નુકસાન પત્રક"}
+  ]},
+  {"id":"assets","name":{"en":"Assets","es":"Bienes","hi":"संपत्ति","gu":"મિલકત"},"items":[
+   {"id":"bank","en":"Last 3–6 months of statements for every checking and savings account","es":"Últimos 3–6 meses de estados de cada cuenta corriente y de ahorros","hi":"हर चेकिंग और सेविंग खाते के पिछले 3–6 महीने के स्टेटमेंट","gu":"દરેક ચેકિંગ અને સેવિંગ ખાતાના છેલ્લા 3–6 મહિનાના સ્ટેટમેન્ટ"},
+   {"id":"retire","en":"401(k), IRA, stocks or other investment statements","es":"Estados de 401(k), IRA, acciones u otras inversiones","hi":"401(k), IRA, शेयर या अन्य निवेश के स्टेटमेंट","gu":"401(k), IRA, શેર અથવા અન્ય રોકાણના સ્ટેટમેન્ટ"},
+   {"id":"property","en":"Deed or mortgage statement if you own any real estate","es":"Escritura o estado hipotecario si posee bienes raíces","hi":"कोई अचल संपत्ति है तो उसका दस्तावेज़ या मॉर्गेज स्टेटमेंट","gu":"કોઈ સ્થાવર મિલકત હોય તો દસ્તાવેજ અથવા મોર્ગેજ સ્ટેટમેન્ટ"}
+  ]},
+  {"id":"identity","name":{"en":"Household","es":"Hogar","hi":"परिवार","gu":"કુટુંબ"},"items":[
+   {"id":"id","en":"Photo ID for every adult","es":"Identificación con foto de cada adulto","hi":"हर वयस्क की फ़ोटो पहचान","gu":"દરેક પુખ્તનું ફોટો ID"},
+   {"id":"ssn","en":"Social Security cards or ITIN letters for everyone","es":"Tarjetas de Seguro Social o cartas ITIN de todos","hi":"सभी के सोशल सिक्योरिटी कार्ड या ITIN पत्र","gu":"બધાના સોશિયલ સિક્યોરિટી કાર્ડ અથવા ITIN પત્ર"},
+   {"id":"birth","en":"Birth certificates for children","es":"Actas de nacimiento de los niños","hi":"बच्चों के जन्म प्रमाणपत्र","gu":"બાળકોના જન્મ પ્રમાણપત્ર"},
+   {"id":"custody","en":"Custody or child-support court orders, if any","es":"Órdenes judiciales de custodia o manutención, si las hay","hi":"कस्टडी या चाइल्ड-सपोर्ट के कोर्ट आदेश, यदि हों","gu":"કસ્ટડી અથવા ચાઇલ્ડ-સપોર્ટના કોર્ટ આદેશ, હોય તો"}
+  ]},
+  {"id":"preference","name":{"en":"Preferences","es":"Preferencias","hi":"प्राथमिकताएँ","gu":"પ્રાથમિકતાઓ"},"items":[
+   {"id":"veteran","en":"DD-214 if applying under a veteran set-aside","es":"DD-214 si solicita bajo una reserva para veteranos","hi":"वेटरन सेट-असाइड के तहत आवेदन हो तो DD-214","gu":"વેટરન સેટ-અસાઇડ હેઠળ અરજી હોય તો DD-214"},
+   {"id":"disability","en":"Doctor's letter for an accessible unit or reasonable accommodation","es":"Carta médica para una unidad accesible o acomodo razonable","hi":"सुलभ यूनिट या उचित सुविधा के लिए डॉक्टर का पत्र","gu":"સુલભ યુનિટ અથવા વાજબી સગવડ માટે ડૉક્ટરનો પત્ર"},
+   {"id":"age","en":"Proof of age 55+ for age-restricted communities","es":"Prueba de 55+ años para comunidades con restricción de edad","hi":"आयु-प्रतिबंधित समुदायों के लिए 55+ का प्रमाण","gu":"વય-પ્રતિબંધિત સમુદાયો માટે 55+ નો પુરાવો"}
+  ]}
+ ],
+ "source": "Compiled from administrative-agent application packets (CGP&H / Affordable Homes New Jersey, Piazza & Associates, Princeton Community Housing) and UHAC N.J.A.C. 5:80-26.16 certification rules."
+}

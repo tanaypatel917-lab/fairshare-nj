@@ -63,3 +63,12 @@ h1, h2, h3, .display { @apply font-display; letter-spacing: -0.02em; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+.tiles-paper { filter: grayscale(1) contrast(1.05) brightness(1.04) sepia(0.18); }
+.leaflet-container { background: #e9e3d8; font-family: inherit; }
+.leaflet-popup-content-wrapper { border-radius: 0; border: 3px solid #141414; box-shadow: 6px 6px 0 0 #141414; background: #F4EFE6; color: #141414; }
+.leaflet-popup-tip { background: #141414; }
+.leaflet-bar { border: 3px solid #141414 !important; border-radius: 0 !important; box-shadow: 3px 3px 0 0 #141414 !important; }
+.leaflet-bar a { border-radius: 0 !important; color: #141414; font-weight: 900; }
+
+.no-scrollbar::-webkit-scrollbar{display:none}.no-scrollbar{scrollbar-width:none}

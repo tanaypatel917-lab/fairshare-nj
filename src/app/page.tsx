@@ -1,3 +1,4 @@
+import towns from "@/data/towns.json";
 import Link from "next/link";
 import { listings } from "@/lib/listings";
 
@@ -19,7 +20,7 @@ export default function Landing() {
         </p>
       </section>
       <section className="px-5 mt-8 grid grid-cols-3 gap-3">
-        {[["Open now", open, "lotteries & lists"], ["31", "towns", "in NJ-12 tracked"], ["$676", "/mo", "lowest rent seen"]].map(([a, b, c]) => (
+        {[["Open now", open, "lotteries & lists"], [String((towns as {towns:{prospective:number}[]}).towns.reduce((a,t)=>a+t.prospective,0).toLocaleString()), "owed", "new homes, 32 towns"], ["$676", "/mo", "lowest rent seen"]].map(([a, b, c]) => (
           <div key={String(a)} className="border-3 border-ink p-3 bg-paper shadow-hardSm">
             <div className="font-display font-black text-[28px] leading-none num">{a === "Open now" ? b : a}</div>
             <div className="font-mono text-[10px] uppercase tracking-wider mt-1">{a === "Open now" ? a : b}</div>
