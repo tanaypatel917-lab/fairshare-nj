@@ -2,6 +2,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useStore, type Profile } from "@/lib/store";
+import { tierFor } from "@/lib/eligibility";
+import { money } from "@/lib/listings";
 
 const counties: Profile["county"][] = ["Middlesex", "Mercer", "Somerset", "Union"];
 
@@ -29,6 +31,8 @@ export default function Start() {
       </div>) },
   ];
   const last = step === steps.length - 1;
+  const live = tierFor(p.county, p.householdSize, p.income);
+  const tierWord = live ? ({ veryLow: "very-low", low: "low", moderate: "moderate", over: "above moderate" } as const)[live.tier] : "";
   return (
     <div className="min-h-dvh flex flex-col px-5 pt-5">
       <div className="flex items-center justify-between">
@@ -41,7 +45,13 @@ export default function Start() {
         <p className="mt-3 font-serif italic text-lg text-ink2">{steps[step].sub}</p>
         <div className="mt-8">{steps[step].body}</div>
       </div>
-      <div className="mt-auto pb-8 pt-8">
+      <div className="mt-auto pt-8">
+        <div className="border-3 border-ink border-dashed p-3 flex items-center justify-between gap-3 bg-paper/60">
+          <div className="font-mono text-[10px] uppercase tracking-[0.14em] leading-relaxed text-ink2">{p.householdSize}{p.householdSize === 8 ? "+" : ""} people · {money(p.income)} · {p.county}{step >= 3 ? ` · ${p.type} · ${p.bedrooms}BR` : ""}</div>
+          {live && step >= 1 && <span key={live.tier} className={`stamp stamp-in shrink-0 ${live.tier === "over" ? "" : "bg-lime"}`}>{tierWord}</span>}
+        </div>
+      </div>
+      <div className="pb-8 pt-4">
         <button className="btn btn-orange w-full text-lg py-4" onClick={() => { if (last) { setProfile(p); router.push("/tier"); } else setStep(step + 1); }}>{last ? "See my tier →" : "Next →"}</button>
       </div>
     </div>

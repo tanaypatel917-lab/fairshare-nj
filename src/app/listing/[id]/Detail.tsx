@@ -3,6 +3,9 @@ import Link from "next/link";
 import { fmtDate, liveStatus, matchListing, money, type Listing } from "@/lib/listings";
 import { downloadIcs } from "@/lib/ics";
 import { useStore } from "@/lib/store";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+const LotteryMap = dynamic(() => import("@/components/LotteryMap"), { ssr: false });
 import { tierFor } from "@/lib/eligibility";
 
 const tone: Record<string, string> = { orange: "bg-orange", lime: "bg-lime", sky: "bg-sky", mute: "bg-paper2 text-mute" };
@@ -13,6 +16,7 @@ export function Detail({ l }: { l: Listing }) {
   const s = liveStatus(l); const m = matchListing(l, profile);
   const t = profile ? tierFor(l.county, profile.householdSize, profile.income) : null;
   const star = starred.includes(l.id);
+  const [added, setAdded] = useState(false);
   return (
     <div>
       <div className="px-5 pt-5 flex items-center justify-between">
@@ -50,10 +54,12 @@ export function Detail({ l }: { l: Listing }) {
       <div className="px-5 mt-6 grid gap-3">
         <a href={l.applyUrl} target="_blank" rel="noreferrer" className="btn btn-orange text-lg py-4">Apply on the agent&apos;s site ↗</a>
         <div className="grid grid-cols-2 gap-3">
-          <button onClick={() => downloadIcs(l)} className="btn btn-light text-sm">+ Calendar alert</button>
-          <Link href="/checklist" className="btn btn-light text-sm">Document list</Link>
+          <button onClick={() => { downloadIcs(l); setAdded(true); setTimeout(() => setAdded(false), 2500); }} className={`btn text-sm whitespace-nowrap ${added ? "bg-lime text-ink" : "btn-light"}`}>{added ? "✓ Reminder saved" : "+ Remind me"}</button>
+          <Link href="/checklist" className="btn btn-light text-sm whitespace-nowrap">Documents</Link>
         </div>
       </div>
+
+      <div className="mx-5 mt-8 border-3 border-ink shadow-hard h-52 relative overflow-hidden"><LotteryMap focus={l} /><span className="absolute top-2 left-2 z-[1001] stamp bg-paper text-[10px]">{l.address.split(",")[0]}</span></div>
 
       <div className="px-5 mt-8">
         <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-mute">Sources · last checked {l.lastChecked}</div>

@@ -11,7 +11,9 @@ const nec: [number, number][] = [[40.6153,-74.4148],[40.5620,-74.4653],[40.5180,
 export default function LotteryMap({ focus }: { focus?: Listing }) {
   const center: [number, number] = focus ? [focus.lat, focus.lng] : [40.37, -74.55];
   return (
-    <MapContainer center={center} zoom={focus ? 13 : 10} scrollWheelZoom={false} className="h-full w-full" attributionControl={false}>
+    <MapContainer center={center} zoom={focus ? 13 : 10} scrollWheelZoom={false} className="h-full w-full" attributionControl={false}
+      zoomControl={!focus}
+      dragging={!focus}>
       <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" className="tiles-paper" />
       <Polyline positions={nec} pathOptions={{ color: "#141414", weight: 3, dashArray: "6 6" }} />
       {listings.map((l) => { const s = liveStatus(l); return (
