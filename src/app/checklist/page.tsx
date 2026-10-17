@@ -7,14 +7,15 @@ import type { Profile } from "@/lib/store";
 type L = Profile["lang"];
 type Item = { id: string } & Record<L, string>;
 type Group = { id: string; name: Record<L, string>; items: Item[] };
+const LANG_KEY = "fairshare-lang";
 const d = data as unknown as { langs: Record<L, string>; title: Record<L, string>; intro: Record<L, string>; groups: Group[]; source: string };
 
 export default function Checklist() {
   const { profile, hydrated, checked, setChecked, setProfile } = useStore();
-  const [localLang, setLocalLang] = useState<L | null>(null);
+  const [localLang, setLocalLang] = useState<L | null>(() => (typeof window === "undefined" ? null : (localStorage.getItem(LANG_KEY) as L | null)));
   if (!hydrated) return null;
   const lang: L = localLang ?? profile?.lang ?? "en";
-  const pick = (k: L) => { setLocalLang(k); if (profile) setProfile({ ...profile, lang: k }); };
+  const pick = (k: L) => { setLocalLang(k); localStorage.setItem(LANG_KEY, k); if (profile) setProfile({ ...profile, lang: k }); };
   const items = d.groups.flatMap((g) => g.items);
   const done = items.filter((i) => checked[i.id]).length;
   return (
