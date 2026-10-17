@@ -5,6 +5,7 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { PageEnter } from "@/components/PageEnter";
 import { Sw } from "@/components/Sw";
+import { Title } from "@/components/Title";
 
 const display = localFont({ src: "../../public/fonts/CabinetGrotesk-Variable.woff2", variable: "--font-display", weight: "100 900", display: "swap" });
 const body = localFont({ src: "../../public/fonts/GeneralSans-Variable.woff2", variable: "--font-body", weight: "200 700", display: "swap" });
@@ -36,7 +37,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <main className="pb-28 min-h-dvh"><PageEnter>{children}</PageEnter></main>
           <Nav />
         </div>
-        <Sw />
+        <Sw /><Title />
       </body>
     </html>
   );
