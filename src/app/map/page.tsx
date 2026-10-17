@@ -15,7 +15,7 @@ export default function MapPage() {
       <div className="flex gap-2 overflow-x-auto no-scrollbar px-5 py-3 border-b-3 border-ink">
         {listings.map((l) => { const st = liveStatus(l); const on = sel?.id === l.id; return (
           <button key={l.id} onClick={() => setSel(l)} aria-pressed={on} className={`shrink-0 flex items-center gap-2 border-3 border-ink px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors ${on ? "bg-ink text-paper" : "bg-paper"}`}>
-            <span className={`inline-block w-2.5 h-2.5 border-2 ${on ? "border-paper" : "border-ink"} ${st.tone === "lime" ? "bg-lime" : st.tone === "orange" ? "bg-orange" : st.tone === "sky" ? "bg-sky" : "bg-mute"}`} />{l.town.replace(/ \(.*\)$/, "")}
+            <span className={`inline-block w-2.5 h-2.5 border-2 ${on ? "border-paper" : "border-ink"} ${st.tone === "lime" ? "bg-lime" : st.tone === "orange" ? "bg-orange" : st.tone === "sky" ? "bg-sky" : "bg-mute"}`} /><span className="max-w-[150px] truncate">{l.name.replace(/ \(.*\)$/, "")}</span>
           </button>); })}
       </div>
       <div className="flex-1 relative"><LotteryMap flyTo={sel} /></div>
