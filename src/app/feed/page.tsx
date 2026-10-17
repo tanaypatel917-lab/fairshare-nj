@@ -31,7 +31,7 @@ export default function Feed() {
       </div>
       {profile && (() => { const t = tierFor(profile.county, profile.householdSize, profile.income); const n = listings.filter((l) => matchListing(l, profile).qualifies).length; return (
         <Link href="/tier" className="mt-4 mx-5 flex items-center justify-between gap-3 border-3 border-ink bg-ink text-paper px-3 py-2.5 shadow-[4px_4px_0_0_#2E5BFF]">
-          <span className="font-mono text-[10px] uppercase tracking-[0.14em] leading-relaxed">{profile.householdSize} ppl · {money(profile.income)} · {profile.county}</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.1em] whitespace-nowrap truncate">{profile.householdSize} ppl · {money(profile.income)} · {profile.county}</span>
           <span className="font-display font-bold text-sm whitespace-nowrap">{t ? ({ veryLow: "Very-low", low: "Low", moderate: "Moderate", over: "Over" } as const)[t.tier] : "—"} · {n} match{n === 1 ? "" : "es"} →</span>
         </Link>); })()}
       <div className="mt-4 px-5 flex gap-2 overflow-x-auto no-scrollbar">
