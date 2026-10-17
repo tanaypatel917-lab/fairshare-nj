@@ -1,3 +1,4 @@
+import { BASE } from "@/lib/base";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -11,9 +12,9 @@ const serif = localFont({ src: [{ path: "../../public/fonts/InstrumentSerif-Regu
 const mono = localFont({ src: "../../public/fonts/IBMPlexMono-Medium.woff2", variable: "--font-mono", weight: "500", display: "swap" });
 
 export const metadata: Metadata = {
+  manifest: `${BASE}/manifest.webmanifest`,
   title: "FairShare NJ — every affordable-housing lottery in NJ-12",
   description: "One radar for every affordable-housing lottery in New Jersey's 12th District: eligibility math, deadlines, document checklists, and a town scoreboard.",
-  manifest: "/manifest.webmanifest",
   appleWebApp: { capable: true, title: "FairShare NJ", statusBarStyle: "black-translucent" },
 };
 export const viewport: Viewport = { themeColor: "#0E0F12", width: "device-width", initialScale: 1, viewportFit: "cover" };

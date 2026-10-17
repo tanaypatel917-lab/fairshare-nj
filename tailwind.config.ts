@@ -17,10 +17,10 @@ const config: Config = {
         rose: "#FF6B9A",
       },
       fontFamily: {
-        display: ["var(--font-display)", "system-ui", "sans-serif"],
-        body: ["var(--font-body)", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "Georgia", "serif"],
-        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+        display: ["var(--font-display)", "Noto Sans Devanagari", "Noto Sans Gujarati", "system-ui", "sans-serif"],
+        body: ["var(--font-body)", "Noto Sans Devanagari", "Noto Sans Gujarati", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "Noto Sans Devanagari", "Noto Sans Gujarati", "Georgia", "serif"],
+        mono: ["var(--font-mono)", "Noto Sans Devanagari", "Noto Sans Gujarati", "ui-monospace", "monospace"],
       },
       boxShadow: {
         hard: "6px 6px 0 0 #2E5BFF",

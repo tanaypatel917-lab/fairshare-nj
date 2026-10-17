@@ -13,6 +13,10 @@ Built for the 2026 Congressional App Challenge (NJ-12) by students from Monroe T
 
 Everything is local-first: no backend, no account, nothing leaves the phone. Installs as a PWA.
 
+## Deploy
+
+Pushes to `main` build a static export and publish it to GitHub Pages via `.github/workflows/pages.yml`: https://tanaypatel917-lab.github.io/fairshare-nj/
+
 ## Run
 ```bash
 npm install

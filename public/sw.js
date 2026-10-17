@@ -1,5 +1,6 @@
-const CACHE = "fairshare-v1";
-const PRECACHE = ["/", "/feed", "/tier", "/checklist", "/towns", "/start", "/about", "/manifest.webmanifest", "/icon.svg"];
+const CACHE = "fairshare-v2";
+const SCOPE = new URL(self.registration.scope).pathname;
+const PRECACHE = ["", "feed/", "tier/", "checklist/", "towns/", "start/", "about/", "manifest.webmanifest", "icon.svg"].map((p) => SCOPE + p);
 self.addEventListener("install", (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECACHE)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", (e) => {
