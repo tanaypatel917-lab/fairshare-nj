@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import towns from "@/data/towns.json";
 import { listings } from "@/lib/listings";
 
@@ -15,6 +15,8 @@ function seen(name: string) {
 export default function Towns() {
   const [county, setCounty] = useState<(typeof COUNTIES)[number]>("All");
   const [open, setOpen] = useState<string | null>("Monroe Township");
+  const [grown, setGrown] = useState(false);
+  useEffect(() => { const t = setTimeout(() => setGrown(true), 80); return () => clearTimeout(t); }, []);
   const rows = T.towns.filter((t) => county === "All" || t.county === county);
   const owe = rows.reduce((a, t) => a + t.prospective, 0);
   const fix = rows.reduce((a, t) => a + t.present, 0);
@@ -48,8 +50,8 @@ export default function Towns() {
                   <span className="font-display font-black text-[22px] leading-none num">{t.prospective}</span>
                 </div>
                 <div className="ml-9 mt-2 h-2.5 border-2 border-ink bg-paper relative overflow-hidden">
-                  <div className="absolute inset-y-0 left-0 bg-ink transition-[width] duration-700" style={{ width: `${w}%` }} />
-                  {g > 0 && <div className="absolute inset-y-0 left-0 bg-lime" style={{ width: `${Math.min(100, (g / max) * 100)}%` }} />}
+                  <div className="absolute inset-y-0 left-0 bg-ink transition-[width] duration-[900ms] ease-[cubic-bezier(.2,.8,.2,1)]" style={{ width: grown ? `${w}%` : "0%", transitionDelay: `${Math.min(i, 12) * 40}ms` }} />
+                  {g > 0 && <div className="absolute inset-y-0 left-0 bg-lime transition-[width] duration-[900ms] ease-[cubic-bezier(.2,.8,.2,1)]" style={{ width: grown ? `${Math.min(100, (g / max) * 100)}%` : "0%", transitionDelay: `${Math.min(i, 12) * 40 + 200}ms` }} />}
                 </div>
               </button>
               {isOpen && (
