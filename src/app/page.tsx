@@ -1,6 +1,6 @@
 import towns from "@/data/towns.json";
 import Link from "next/link";
-import { listings } from "@/lib/listings";
+import { listings, liveStatus, fmtDate, money } from "@/lib/listings";
 import { CountUp } from "@/components/CountUp";
 import { Reveal } from "@/components/Reveal";
 
@@ -9,6 +9,10 @@ const owed = (towns as { towns: { prospective: number }[] }).towns.reduce((a, t)
 export default function Landing() {
   const open = listings.filter((l) => l.status !== "closed").length;
   const hero = listings.find((l) => l.id === "princeton-orchards-2026") ?? listings[0];
+  const heroStatus = liveStatus(hero);
+  const heroPrice = hero.units.map((u) => u.rentFrom ?? u.priceFrom ?? null).filter((x): x is number => x != null).sort((a, b) => a - b)[0];
+  const heroTiers = Array.from(new Set(hero.units.map((u) => ({ veryLow: "very-low", low: "low", moderate: "moderate" } as const)[u.tier]))).join(" / ");
+  const heroBr = Array.from(new Set(hero.units.map((u) => u.bedrooms))).sort().join(" · ");
   return (
     <div className="min-h-dvh flex flex-col overflow-x-clip">
       <header className="flex items-center justify-between px-5 pt-5">
@@ -42,13 +46,13 @@ export default function Landing() {
                 <div className="font-serif italic text-lg">{hero.town}</div>
                 <div className="mt-3 flex items-end gap-5 border-t-2 border-ink pt-3">
                   <div><div className="font-mono text-[10px] uppercase">Units</div><div className="font-display font-black text-3xl num leading-none">{hero.totalUnits}</div></div>
-                  <div><div className="font-mono text-[10px] uppercase">From</div><div className="font-display font-black text-3xl num leading-none">$676<span className="text-base">/mo</span></div></div>
-                  <div className="ml-auto font-mono text-[10px] uppercase text-right leading-tight">1 · 2 · 3 BR<br />low / moderate</div>
+                  <div><div className="font-mono text-[10px] uppercase">From</div><div className="font-display font-black text-3xl num leading-none">{heroPrice ? money(heroPrice) : "TBD"}{hero.type === "rent" && heroPrice ? <span className="text-base">/mo</span> : null}</div></div>
+                  <div className="ml-auto font-mono text-[10px] uppercase text-right leading-tight">{heroBr} BR<br />{heroTiers}</div>
                 </div>
               </div>
             </div>
           </div>
-          <span className="stamp stamp-in absolute -top-4 right-3 bg-paper text-orange border-orange text-[12px]">Oct 5 · closed</span>
+          <span className={`stamp stamp-in absolute -top-4 right-3 text-[12px] ${heroStatus.key === "closed" ? "bg-paper text-orange border-orange" : heroStatus.tone === "orange" ? "bg-orange text-paper" : "bg-paper text-ink"}`}>{hero.deadline ? `${fmtDate(hero.deadline).replace(/, \d{4}$/, "")} · ` : ""}{heroStatus.label}</span>
         </Link>
       </section>
 

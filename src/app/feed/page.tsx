@@ -41,7 +41,13 @@ export default function Feed() {
       </div>
       <div className="mt-5 px-5 space-y-5">
         {rows.map((m, i) => <Ticket key={m.listing.id} m={m} index={i} />)}
-        {rows.length === 0 && <p className="font-serif italic text-lg text-mute">Nothing here yet — try another filter.</p>}
+        {rows.length === 0 && (
+          <div className="border-3 border-dashed border-ink/40 p-5 text-center">
+            <p className="font-serif italic text-xl text-ink2">{f === "mine" ? "No current lottery matches your household yet." : "Nothing here yet."}</p>
+            <p className="mt-2 text-sm text-mute leading-snug">{f === "mine" ? "New lotteries post every few weeks — watch the full list and star anything in your county." : "Try another filter."}</p>
+            <button onClick={() => setF("all")} className="btn btn-light mt-4">Show all lotteries</button>
+          </div>
+        )}
       </div>
       <p className="mt-8 px-5 font-mono text-[10px] text-mute leading-relaxed">FairShare routes you to each development&apos;s official administrative agent. It never submits applications and never stores your answers off-device.</p>
     </div>
