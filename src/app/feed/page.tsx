@@ -7,18 +7,18 @@ import { useStore } from "@/lib/store";
 import { tierFor } from "@/lib/eligibility";
 import { money } from "@/lib/listings";
 
-type F = "all" | "open" | "mine" | "rent" | "buy";
+type F = "all" | "open" | "mine" | "watching" | "rent" | "buy";
 
 export default function Feed() {
-  const { profile, hydrated } = useStore();
+  const { profile, hydrated, starred } = useStore();
   const [f, setF] = useState<F>("all");
   const rows = useMemo(() => {
     const ms = listings.map((l) => matchListing(l, profile));
     const rank = (k: string) => ({ closing: 0, open: 1, waitlist: 2, pipeline: 3, closed: 4 }[k] ?? 5);
     return ms
-      .filter((m) => f === "all" || (f === "open" && liveStatus(m.listing).key !== "closed") || (f === "mine" && m.qualifies) || (f === "rent" && m.listing.type === "rent") || (f === "buy" && m.listing.type === "buy"))
+      .filter((m) => f === "all" || (f === "open" && liveStatus(m.listing).key !== "closed") || (f === "mine" && m.qualifies) || (f === "watching" && starred.includes(m.listing.id)) || (f === "rent" && m.listing.type === "rent") || (f === "buy" && m.listing.type === "buy"))
       .sort((a, b) => rank(liveStatus(a.listing).key) - rank(liveStatus(b.listing).key) || Number(b.qualifies) - Number(a.qualifies));
-  }, [f, profile]);
+  }, [f, profile, starred]);
   if (!hydrated) return null;
   return (
     <div className="pt-5">
@@ -35,8 +35,8 @@ export default function Feed() {
           <span className="font-display font-bold text-sm whitespace-nowrap">{t ? ({ veryLow: "Very-low", low: "Low", moderate: "Moderate", over: "Over" } as const)[t.tier] : "—"} · {n} match{n === 1 ? "" : "es"} →</span>
         </Link>); })()}
       <div className="mt-4 px-5 flex gap-2 overflow-x-auto no-scrollbar">
-        {(["all", "open", "mine", "rent", "buy"] as F[]).map((k) => (
-          <button key={k} onClick={() => setF(k)} className={`shrink-0 border-3 border-ink px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider ${f === k ? "bg-ink text-paper" : "bg-paper"}`}>{k === "mine" ? "I qualify" : k}</button>
+        {(["all", "open", "mine", "watching", "rent", "buy"] as F[]).filter((k) => k !== "watching" || starred.length > 0).map((k) => (
+          <button key={k} onClick={() => setF(k)} className={`shrink-0 border-3 border-ink px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider ${f === k ? "bg-ink text-paper" : "bg-paper"}`}>{k === "mine" ? "I qualify" : k === "watching" ? `★ ${starred.length}` : k}</button>
         ))}
       </div>
       <div className="mt-5 px-5 space-y-5">
