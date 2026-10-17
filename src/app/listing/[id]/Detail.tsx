@@ -17,11 +17,22 @@ export function Detail({ l }: { l: Listing }) {
   const t = profile ? tierFor(l.county, profile.householdSize, profile.income) : null;
   const star = starred.includes(l.id);
   const [added, setAdded] = useState(false);
+  const [shared, setShared] = useState(false);
+  async function share() {
+    const text = `${l.name} — ${l.town}: ${l.totalUnits ?? ""} affordable units${l.deadline ? `, apply by ${fmtDate(l.deadline)}` : ""}. Found on FairShare NJ.`;
+    try {
+      if (navigator.share) await navigator.share({ title: l.name, text, url: location.href });
+      else { await navigator.clipboard.writeText(`${text} ${location.href}`); setShared(true); setTimeout(() => setShared(false), 2000); }
+    } catch { /* user cancelled */ }
+  }
   return (
     <div>
       <div className="px-5 pt-5 flex items-center justify-between">
         <Link href="/feed" className="font-mono text-[11px] uppercase tracking-widest">← Lotteries</Link>
-        <button onClick={() => toggleStar(l.id)} className={`stamp ${star ? "bg-orange" : ""}`}>{star ? "★ Watching" : "☆ Watch"}</button>
+        <div className="flex items-center gap-2">
+          <button onClick={share} aria-label="Share this lottery" className="stamp">{shared ? "Copied" : "Share ↗"}</button>
+          <button onClick={() => toggleStar(l.id)} aria-pressed={star} className={`stamp ${star ? "bg-orange" : ""}`}>{star ? "★ Watching" : "☆ Watch"}</button>
+        </div>
       </div>
       <div className="px-5 mt-6">
         <span className={`font-mono text-[10px] uppercase tracking-[0.14em] px-1.5 py-0.5 border-2 border-ink ${tone[s.tone]}`}>{s.label}</span>

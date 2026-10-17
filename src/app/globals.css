@@ -83,6 +83,8 @@ h1, h2, h3, .display { @apply font-display; letter-spacing: -0.02em; }
 .reveal.is-in { opacity: 1; transform: none; }
 .float { animation: floaty 5s ease-in-out infinite; }
 @keyframes floaty { 0%,100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(-2deg) translateY(-8px); } }
+.pop { animation: pop .35s cubic-bezier(.2,1.6,.3,1) both; }
+@keyframes pop { from { transform: scale(.6) rotate(-12deg); } to { transform: none; } }
 .stamp-in { animation: stampIn .5s cubic-bezier(.2,1.4,.3,1) .6s both; }
 @keyframes stampIn { from { opacity: 0; transform: scale(2.2) rotate(-18deg); } to { opacity: 1; transform: scale(1) rotate(-8deg); } }
 ::selection { background: #E8FF4F; color: #0E0F12; }
