@@ -40,8 +40,15 @@ export default function Feed() {
         ))}
       </div>
       <div className="mt-5 px-5 space-y-5">
-        {rows.map((m, i) => <Ticket key={m.listing.id} m={m} index={i} />)}
-        {rows.length === 0 && (
+        {rows.map((m, i) => <Ticket key={m.listing.id} m={m} index={i} anon={!profile} />)}
+        {rows.length === 0 && f === "mine" && !profile && (
+          <div className="border-3 border-ink bg-lime text-paper p-5 shadow-hard">
+            <p className="font-display font-black text-2xl leading-none">Tell us four things.</p>
+            <p className="mt-2 text-sm leading-snug">Household size, income, county, rent or buy — then this tab shows only the lotteries you likely qualify for.</p>
+            <Link href="/start" className="btn btn-dark mt-4 inline-block">Check my tier →</Link>
+          </div>
+        )}
+        {rows.length === 0 && !(f === "mine" && !profile) && (
           <div className="border-3 border-dashed border-ink/40 p-5 text-center">
             <p className="font-serif italic text-xl text-ink2">{f === "mine" ? "No current lottery matches your household yet." : "Nothing here yet."}</p>
             <p className="mt-2 text-sm text-mute leading-snug">{f === "mine" ? "New lotteries post every few weeks — watch the full list and star anything in your county." : "Try another filter."}</p>

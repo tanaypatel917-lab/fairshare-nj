@@ -197,6 +197,7 @@ h1, h2, h3, .display { @apply font-display; letter-spacing: -0.02em; }
 }
 .btn-light { @apply bg-paper text-ink; }
 .btn-orange { @apply bg-orange text-ink; }
+.btn-dark { @apply bg-ink text-paper; }
 .bg-lime, .bg-sky, .bg-rose { color: var(--paper); }
 .bg-lime .text-mute, .bg-lime .text-ink2 { color: #3b3d2a; }
 
