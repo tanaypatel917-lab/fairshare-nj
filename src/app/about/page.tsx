@@ -34,8 +34,21 @@ tier    = income ≤ limits.veryLow ? "veryLow"
         : income ≤ limits.moderate? "moderate" : "over"
 unit OK = rank(tier) ≤ rank(unit.tier) && |unit.br − wanted| ≤ 1`}</pre>
       <p className="mt-3 font-mono text-[10px] text-mute leading-relaxed">“Likely eligible” only. Agents also verify assets, credit, household composition, set-asides (55+, veteran, accessible) and regional preference.</p>
+      <h2 className="mt-8 font-mono text-[11px] uppercase tracking-[0.18em] text-mute">What&apos;s in the code</h2>
+      <ul className="mt-2 grid grid-cols-2 gap-2">
+        {([
+          ["Rules engine", "UHAC limits as versioned JSON + a pure tierFor() with Vitest tests"],
+          ["Static PWA", "Next.js export on GitHub Pages; service worker precaches every tab for offline use"],
+          ["On-device state", "Profile, stars and checklist live in localStorage — nothing is uploaded"],
+          ["Open data", "DCA Round 4 workbook parsed for 32 towns; .ics reminders generated client-side"],
+        ] as const).map(([t, d]) => (
+          <li key={t} className="border-3 border-ink p-3 shadow-hardSm"><div className="font-display font-bold leading-tight">{t}</div><p className="mt-1 text-[13px] text-ink2 leading-snug">{d}</p></li>
+        ))}
+      </ul>
+      <a href="https://github.com/tanaypatel917-lab/fairshare-nj" target="_blank" rel="noreferrer" className="btn btn-light w-full mt-3">Source on GitHub ↗</a>
       <h2 className="mt-8 font-mono text-[11px] uppercase tracking-[0.18em] text-mute">Monroe Township note</h2>
       <p className="mt-2 text-[15px] text-ink2 leading-snug">Figures for Monroe refer to Monroe Township, Middlesex County (monroetwp.com) — not Monroe Township in Gloucester County.</p>
+      <p className="mt-8 mb-4 font-mono text-[10px] text-mute leading-relaxed text-center">Built for the 2026 Congressional App Challenge · NJ-12 · Monroe Township, NJ</p>
     </div>
   );
 }
