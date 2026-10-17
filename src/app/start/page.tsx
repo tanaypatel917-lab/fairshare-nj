@@ -19,7 +19,9 @@ export default function Start() {
     { q: "Household income, before taxes?", sub: "Everyone's gross yearly income added together. Estimates are fine.", body: (
       <div>
         <div className="flex items-end gap-1"><span className="font-display font-black text-3xl">$</span><input inputMode="numeric" className="field" value={p.income.toLocaleString("en-US")} onChange={(e) => setP({ ...p, income: Number(e.target.value.replace(/[^0-9]/g, "")) || 0 })} /></div>
-        <input type="range" min={0} max={200000} step={1000} value={p.income} onChange={(e) => setP({ ...p, income: Number(e.target.value) })} className="w-full mt-4 accent-orange" />
+        <input type="range" min={0} max={200000} step={1000} value={p.income} onChange={(e) => setP({ ...p, income: Number(e.target.value) })} className="w-full mt-4 accent-orange" aria-label="Household income" />
+        <div className="mt-3 flex gap-2 overflow-x-auto no-scrollbar">{[30000, 45000, 60000, 80000, 100000].map((n) => <button key={n} onClick={() => setP({ ...p, income: n })} className={`shrink-0 border-2 border-ink px-2.5 py-1 font-mono text-[11px] ${p.income === n ? "bg-ink text-paper" : "bg-paper"}`}>${n / 1000}k</button>)}</div>
+        <p className="mt-3 font-serif italic text-ink2">About <b className="num not-italic font-display">{money(Math.round(p.income / 12))}</b> a month, or <b className="num not-italic font-display">{money(Math.round(p.income / 52))}</b> a week.</p>
       </div>) },
     { q: "Where do you want to live?", sub: "Income limits are set per county region.", body: (
       <div className="grid grid-cols-2 gap-2">{counties.map((c) => <button key={c} onClick={() => setP({ ...p, county: c })} className={`border-3 border-ink py-4 font-display font-bold text-xl ${p.county === c ? "bg-ink text-paper" : "bg-paper"}`}>{c}</button>)}</div>) },
