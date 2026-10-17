@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { fmtDate, liveStatus, matchListing, money, type Listing } from "@/lib/listings";
+import { daysUntil, fmtDate, listings, liveStatus, matchListing, money, type Listing } from "@/lib/listings";
 import { downloadIcs } from "@/lib/ics";
 import { useStore } from "@/lib/store";
 import { useState } from "react";
@@ -43,7 +43,7 @@ export function Detail({ l }: { l: Listing }) {
 
       <div className="mx-5 mt-6 border-3 border-ink shadow-hard bg-paper">
         <div className="grid grid-cols-2 divide-x-3 divide-ink border-b-3 border-ink">
-          <div className="p-4"><div className="font-mono text-[10px] uppercase text-mute">Apply by</div><div className="font-display font-black text-2xl num">{fmtDate(l.deadline)}</div></div>
+          <div className="p-4"><div className="font-mono text-[10px] uppercase text-mute">Apply by</div><div className="font-display font-black text-2xl num">{fmtDate(l.deadline)}</div>{s.key === "closing" && <div className="mt-1 inline-block font-mono text-[10px] uppercase bg-orange text-paper px-1.5 py-0.5">{daysUntil(l.deadline)} days left</div>}</div>
           <div className="p-4"><div className="font-mono text-[10px] uppercase text-mute">Units</div><div className="font-display font-black text-2xl num">{l.totalUnits ?? "TBD"}</div></div>
         </div>
         {l.units.length > 0 && (
@@ -59,6 +59,12 @@ export function Detail({ l }: { l: Listing }) {
             })}
           </ul>
         )}
+        {(l.drawingDate || l.moveIn) && (
+          <div className="grid grid-cols-2 divide-x-3 divide-ink border-t-3 border-ink">
+            <div className="p-4"><div className="font-mono text-[10px] uppercase text-mute">Drawing</div><div className="font-display font-bold num">{l.drawingDate ? fmtDate(l.drawingDate) : "TBA"}</div></div>
+            <div className="p-4"><div className="font-mono text-[10px] uppercase text-mute">Move-in</div><div className="font-display font-bold num">{l.moveIn ?? "TBA"}</div></div>
+          </div>
+        )}
         <div className="px-4 py-3 border-t-3 border-ink font-mono text-[11px]">Agent: {l.agent}</div>
       </div>
 
@@ -71,6 +77,19 @@ export function Detail({ l }: { l: Listing }) {
       </div>
 
       <div className="mx-5 mt-8 border-3 border-ink shadow-hard h-52 relative overflow-hidden"><LotteryMap focus={l} /><span className="absolute top-2 left-2 z-[1001] stamp bg-paper text-[10px]">{l.address.split(",")[0]}</span></div>
+
+      {(() => { const near = listings.filter((o) => o.id !== l.id && o.county === l.county && liveStatus(o).key !== "closed").slice(0, 3); return near.length > 0 && (
+        <div className="px-5 mt-8">
+          <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-mute">More in {l.county} County</div>
+          <ul className="mt-2 border-t-2 border-ink divide-y-2 divide-ink/30">
+            {near.map((o) => { const os = liveStatus(o); return (
+              <li key={o.id}><Link href={`/listing/${o.id}`} className="flex items-center justify-between gap-3 py-3 lift">
+                <div className="min-w-0"><div className="font-display font-bold leading-tight truncate">{o.name}</div><div className="font-serif italic text-sm text-ink2">{o.town} · {o.totalUnits ?? "—"} units</div></div>
+                <span className={`shrink-0 font-mono text-[10px] uppercase px-1.5 py-0.5 border-2 border-ink ${tone[os.tone]}`}>{os.label}</span>
+              </Link></li>); })}
+          </ul>
+        </div>
+      ); })()}
 
       <div className="px-5 mt-8">
         <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-mute">Sources · last checked {l.lastChecked}</div>

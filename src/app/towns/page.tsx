@@ -16,8 +16,12 @@ export default function Towns() {
   const [county, setCounty] = useState<(typeof COUNTIES)[number]>("All");
   const [open, setOpen] = useState<string | null>("Monroe Township");
   const [grown, setGrown] = useState(false);
+  const [sort, setSort] = useState<"owed" | "az" | "seen">("owed");
+  const [q, setQ] = useState("");
   useEffect(() => { const t = setTimeout(() => setGrown(true), 80); return () => clearTimeout(t); }, []);
-  const rows = T.towns.filter((t) => county === "All" || t.county === county);
+  const rows = T.towns
+    .filter((t) => (county === "All" || t.county === county) && t.name.toLowerCase().includes(q.trim().toLowerCase()))
+    .sort((a, b) => sort === "az" ? a.name.localeCompare(b.name) : sort === "seen" ? seen(b.name) - seen(a.name) || b.prospective - a.prospective : b.prospective - a.prospective);
   const owe = rows.reduce((a, t) => a + t.prospective, 0);
   const fix = rows.reduce((a, t) => a + t.present, 0);
   const got = rows.reduce((a, t) => a + seen(t.name), 0);
@@ -38,7 +42,14 @@ export default function Towns() {
         {COUNTIES.map((c) => <button key={c} onClick={() => setCounty(c)} className={`shrink-0 border-2 border-ink px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider ${county === c ? "bg-ink text-paper" : "bg-paper"}`}>{c}</button>)}
       </div>
 
-      <ol className="mt-5 border-t-3 border-ink">
+      <div className="mt-3 flex items-center gap-2">
+        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Find your town" aria-label="Find your town" className="flex-1 min-w-0 border-3 border-ink bg-paper px-3 py-2 font-mono text-[12px] uppercase tracking-wider placeholder:text-mute focus:outline-none focus:shadow-hardSm" />
+        <div className="flex border-3 border-ink divide-x-3 divide-ink shrink-0" role="group" aria-label="Sort">
+          {([["owed", "Owed"], ["seen", "Seen"], ["az", "A–Z"]] as const).map(([k, lab]) => <button key={k} onClick={() => setSort(k)} aria-pressed={sort === k} className={`px-2.5 py-2 font-mono text-[10px] uppercase tracking-wider ${sort === k ? "bg-ink text-paper" : "bg-paper"}`}>{lab}</button>)}
+        </div>
+      </div>
+
+      <ol className="mt-4 border-t-3 border-ink">
         {rows.map((t, i) => {
           const g = seen(t.name); const isOpen = open === t.name; const w = (t.prospective / max) * 100;
           return (
@@ -65,6 +76,7 @@ export default function Towns() {
             </li>
           );
         })}
+        {rows.length === 0 && <li className="py-6 font-serif italic text-lg text-mute">No NJ-12 town matches &ldquo;{q}&rdquo;.</li>}
       </ol>
       <p className="mt-6 font-mono text-[10px] text-mute leading-relaxed">{T.note} {T.asOf}. <a className="underline" href={T.page} target="_blank" rel="noreferrer">nj.gov/dca ↗</a></p>
     </div>

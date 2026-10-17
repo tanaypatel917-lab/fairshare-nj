@@ -42,6 +42,23 @@ export default function TierPage() {
         <p className="mt-3 font-mono text-[10px] text-mute leading-relaxed">Source: NJHMFA Uniform Housing Affordability Controls income limits, effective May 16, 2025. Units restricted to a tier are open to households at or below it; agents also apply asset tests and set-asides.</p>
       </div>
 
+      <div className="mt-5 grid grid-cols-2 gap-3">
+        <div className="border-3 border-ink p-3 shadow-hardSm">
+          <div className="font-mono text-[10px] uppercase tracking-wider text-mute">Headroom</div>
+          {tier === "over" ? (
+            <><div className="mt-1 font-display font-black text-2xl num leading-none text-orange">{money(profile.income - limits.moderate)}</div><div className="mt-1 font-serif italic text-sm text-ink2">over the moderate limit</div></>
+          ) : (
+            <><div className="mt-1 font-display font-black text-2xl num leading-none">{money(limits[tier] - profile.income)}</div><div className="mt-1 font-serif italic text-sm text-ink2">under the {short[tier].toLowerCase()} limit</div></>
+          )}
+        </div>
+        <div className="border-3 border-ink p-3 shadow-hardSm">
+          <div className="font-mono text-[10px] uppercase tracking-wider text-mute">Same household in</div>
+          {(["Mercer", "Middlesex", "Somerset", "Union"] as const).filter((c) => !limits.counties.includes(c)).map((c) => tierFor(c, profile.householdSize, profile.income)).filter((x, i, a): x is NonNullable<typeof x> => !!x && a.findIndex((y) => y?.limits.region === x.limits.region) === i).slice(0, 2).map((o) => (
+            <div key={o.limits.region} className="mt-1 flex items-baseline justify-between gap-2"><span className="font-serif italic text-sm text-ink2 truncate">Region {o.limits.region} · {o.limits.counties[0]}</span><span className={`font-display font-bold text-sm whitespace-nowrap ${o.tier !== tier ? "text-lime" : ""}`}>{short[o.tier]}</span></div>
+          ))}
+        </div>
+      </div>
+
       <div className="mt-6">
         <p className="font-serif italic text-lg">{tier === "over" ? "You're above the moderate limit for this region — but limits rise with household size, and other regions differ." : `You can apply for ${order.slice(order.indexOf(tier), 3).map((t) => short[t].toLowerCase()).join(" and ")}-income units.`}</p>
         <Link href="/feed" className="btn btn-orange w-full mt-4 text-lg py-4">Show my lotteries →</Link>

@@ -7,14 +7,15 @@ import type { Profile } from "@/lib/store";
 type L = Profile["lang"];
 type Item = { id: string } & Record<L, string>;
 type Group = { id: string; name: Record<L, string>; items: Item[] };
+const LANG_KEY = "fairshare-lang";
 const d = data as unknown as { langs: Record<L, string>; title: Record<L, string>; intro: Record<L, string>; groups: Group[]; source: string };
 
 export default function Checklist() {
   const { profile, hydrated, checked, setChecked, setProfile } = useStore();
-  const [localLang, setLocalLang] = useState<L | null>(null);
+  const [localLang, setLocalLang] = useState<L | null>(() => (typeof window === "undefined" ? null : (localStorage.getItem(LANG_KEY) as L | null)));
   if (!hydrated) return null;
   const lang: L = localLang ?? profile?.lang ?? "en";
-  const pick = (k: L) => { setLocalLang(k); if (profile) setProfile({ ...profile, lang: k }); };
+  const pick = (k: L) => { setLocalLang(k); localStorage.setItem(LANG_KEY, k); if (profile) setProfile({ ...profile, lang: k }); };
   const items = d.groups.flatMap((g) => g.items);
   const done = items.filter((i) => checked[i.id]).length;
   return (
@@ -26,7 +27,7 @@ export default function Checklist() {
       {done === items.length && <p className="mt-3 stamp stamp-in bg-lime">Packet complete — you can answer any certification letter</p>}
       {d.groups.map((g) => (
         <section key={g.id} className="mt-7">
-          <h2 className="font-mono text-[11px] uppercase tracking-[0.18em] text-mute border-b-2 border-ink pb-1">{g.name[lang]}</h2>
+          <h2 className="flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-mute border-b-2 border-ink pb-1"><span>{g.name[lang]}</span><span className={`num ${g.items.every((it) => checked[it.id]) ? "text-lime" : ""}`}>{g.items.filter((it) => checked[it.id]).length}/{g.items.length}</span></h2>
           <ul>
             {g.items.map((it) => (
               <li key={it.id} className="border-b-2 border-ink/20">
@@ -40,6 +41,9 @@ export default function Checklist() {
           </ul>
         </section>
       ))}
+      {d.groups.some((g) => g.items.some((it) => checked[it.id])) && (
+        <button onClick={() => d.groups.forEach((g) => g.items.forEach((it) => setChecked(it.id, false)))} className="mt-8 font-mono text-[11px] uppercase tracking-wider underline text-mute">{({ en: "Reset packet", es: "Reiniciar lista", hi: "सूची रीसेट करें", gu: "યાદી રીસેટ કરો" } as Record<L, string>)[lang]}</button>
+      )}
       <p className="mt-8 font-mono text-[10px] text-mute leading-relaxed">{d.source}</p>
     </div>
   );
