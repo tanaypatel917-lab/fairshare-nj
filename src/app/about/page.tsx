@@ -22,7 +22,7 @@ export default function About() {
           <li key={t} className="py-4 border-b-2 border-ink/25">
             <div className="font-display font-bold text-[20px]">{t}</div>
             <p className="mt-1 text-[15px] text-ink2 leading-snug">{d}</p>
-            <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="mt-1 inline-block font-mono text-[11px] underline break-all">{href.replace(/^https?:\/\//, "")} ↗</a>
+            {href.startsWith("http") ? <a href={href} target="_blank" rel="noreferrer" className="mt-1 inline-block font-mono text-[11px] underline break-all">{href.replace(/^https?:\/\//, "")} ↗</a> : <Link href={href} className="mt-1 inline-block font-mono text-[11px] underline break-all">{href} →</Link>}
           </li>
         ))}
       </ul>
