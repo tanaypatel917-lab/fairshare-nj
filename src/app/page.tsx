@@ -89,7 +89,7 @@ export default function Landing() {
 
       {/* evidence */}
       <section className="px-5 pt-10 pb-8">
-        <Reveal><div className="border-3 border-ink bg-ink text-paper p-5 shadow-[6px_6px_0_0_#FF5A1F]">
+        <Reveal><div className="border-3 border-ink bg-ink text-paper p-5 shadow-[6px_6px_0_0_#2E5BFF]">
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-paper/70">Why this exists</p>
           <p className="mt-3 font-serif italic text-[22px] leading-tight">&ldquo;More than 4,000 people applied for 28 affordable units in Cherry Hill. About 9,500 applied for 45 in East Hanover.&rdquo;</p>
           <p className="mt-3 text-[14px] text-paper/80 leading-snug">NJ-12 has roughly 96,000 renter households; in Trenton, 62% of homes are rented and most renters are cost-burdened. The 2024 Fair Housing Act makes every town build — but the lotteries are scattered across agents&apos; websites and one-off news stories.</p>

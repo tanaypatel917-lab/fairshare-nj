@@ -5,16 +5,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: "#F4EFE6",
-        paper2: "#EAE3D6",
-        ink: "#141414",
-        ink2: "#3A3732",
-        mute: "#7A746A",
-        line: "#141414",
-        orange: "#FF5A1F",
-        lime: "#C9F24B",
-        sky: "#8BB8FF",
-        rose: "#FFB4C6",
+        paper: "#0E0F12",
+        paper2: "#181A20",
+        ink: "#F1EDE4",
+        ink2: "#CFC9BD",
+        mute: "#8B877E",
+        line: "#F1EDE4",
+        orange: "#2E5BFF",
+        lime: "#E8FF4F",
+        sky: "#8FB3FF",
+        rose: "#FF6B9A",
       },
       fontFamily: {
         display: ["var(--font-display)", "system-ui", "sans-serif"],
@@ -23,9 +23,9 @@ const config: Config = {
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       boxShadow: {
-        hard: "6px 6px 0 0 #141414",
-        hardSm: "3px 3px 0 0 #141414",
-        hardLg: "10px 10px 0 0 #141414",
+        hard: "6px 6px 0 0 #2E5BFF",
+        hardSm: "3px 3px 0 0 #2E5BFF",
+        hardLg: "10px 10px 0 0 #2E5BFF",
       },
       borderWidth: { 3: "3px" },
       keyframes: {
