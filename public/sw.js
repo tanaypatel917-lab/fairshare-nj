@@ -6,14 +6,14 @@ self.addEventListener("activate", (e) => { e.waitUntil(caches.keys().then((ks) =
 self.addEventListener("fetch", (e) => {
   const u = new URL(e.request.url);
   if (e.request.method !== "GET" || u.origin !== location.origin) return;
+  const store = (res) => { if (res.ok) { const copy = res.clone(); e.waitUntil(caches.open(CACHE).then((c) => c.put(e.request, copy))); } return res; };
   const isPage = e.request.mode === "navigate" || (e.request.headers.get("accept") || "").includes("text/html");
   if (isPage) {
-    e.respondWith(fetch(e.request).then((res) => { if (res.ok) caches.open(CACHE).then((c) => c.put(e.request, res.clone())); return res; })
-      .catch(() => caches.match(e.request).then((hit) => hit || caches.match(SCOPE))));
+    e.respondWith(fetch(e.request).then(store).catch(() => caches.match(e.request).then((hit) => hit || caches.match(SCOPE))));
     return;
   }
   e.respondWith(caches.match(e.request).then((hit) => {
-    const net = fetch(e.request).then((res) => { if (res.ok) caches.open(CACHE).then((c) => c.put(e.request, res.clone())); return res; }).catch(() => hit);
+    const net = fetch(e.request).then(store).catch(() => hit);
     return hit || net;
   }));
 });
