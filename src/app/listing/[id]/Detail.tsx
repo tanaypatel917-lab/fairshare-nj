@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { daysUntil, fmtDate, listings, liveStatus, matchListing, money, type Listing } from "@/lib/listings";
+import { fmtDate, listings, liveStatus, matchListing, money, type Listing } from "@/lib/listings";
 import { downloadIcs } from "@/lib/ics";
 import { useStore } from "@/lib/store";
 import { useState } from "react";
@@ -45,7 +45,7 @@ export function Detail({ l }: { l: Listing }) {
 
       <div className="mx-5 mt-6 border-3 border-ink shadow-hard bg-paper">
         <div className="grid grid-cols-2 divide-x-3 divide-ink border-b-3 border-ink">
-          <div className="p-4"><div className="font-mono text-[12px] uppercase text-mute">Apply by</div><div className="font-display font-black text-2xl num">{fmtDate(l.deadline)}</div>{s.key === "closing" && <div className="mt-1 inline-block font-mono text-[12px] uppercase bg-orange text-ink px-1.5 py-0.5">{daysUntil(l.deadline)} days left</div>}</div>
+          <div className="p-4"><div className="font-mono text-[12px] uppercase text-mute">Apply by</div><div className="font-display font-black text-2xl num">{fmtDate(l.deadline)}</div>{s.key === "closing" && <div className="mt-1 inline-block font-mono text-[12px] uppercase bg-orange text-ink px-1.5 py-0.5">{s.label}</div>}</div>
           <div className="p-4"><div className="font-mono text-[12px] uppercase text-mute">Units</div><div className="font-display font-black text-2xl num">{l.totalUnits ?? "TBD"}</div></div>
         </div>
         {l.units.length > 0 && (
