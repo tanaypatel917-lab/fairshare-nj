@@ -3,6 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "17 9 * * *"
   workflow_dispatch:
 
 permissions:
@@ -21,15 +23,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
       - uses: actions/configure-pages@v5
         with:
           enablement: true
       - run: npm ci
+      - id: build_date
+        run: echo "date=$(date -u +%F)" >> "$GITHUB_OUTPUT"
       - run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_BUILD_DATE: ${{ steps.build_date.outputs.date }}
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
