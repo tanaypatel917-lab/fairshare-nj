@@ -1,0 +1,37 @@
+name: Daily lottery watch
+
+on:
+  schedule:
+    - cron: "47 10 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/cache@v4
+        with:
+          path: .watch-state
+          key: watch-state-${{ github.run_id }}
+          restore-keys: watch-state-
+      - run: node scripts/watch/run.mjs
+      - name: Comment on the lottery-watch issue
+        if: ${{ hashFiles('.watch-state/report.md') != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create lottery-watch --color E8FF4F --force >/dev/null 2>&1 || true
+          issue_number="$(gh issue list --state open --label lottery-watch --limit 1 --json number --jq '.[0].number // empty')"
+          if [ -z "$issue_number" ]; then
+            gh issue create --title "Lottery watch: sources changed" --body "Daily monitoring reports for official housing lottery sources." --label lottery-watch >/dev/null
+            issue_number="$(gh issue list --state open --label lottery-watch --limit 1 --json number --jq '.[0].number // empty')"
+          fi
+          gh issue comment "$issue_number" --body-file .watch-state/report.md

@@ -11,7 +11,8 @@ const config: Config = {
         ink2: "#CFC9BD",
         mute: "#8B877E",
         line: "#F1EDE4",
-        orange: "#2E5BFF",
+        orange: "#2A52E8",
+        accentInk: "#7A95FF",
         lime: "#E8FF4F",
         sky: "#8FB3FF",
         rose: "#FF6B9A",
@@ -23,9 +24,9 @@ const config: Config = {
         mono: ["var(--font-mono)", "Noto Sans Devanagari", "Noto Sans Gujarati", "ui-monospace", "monospace"],
       },
       boxShadow: {
-        hard: "6px 6px 0 0 #2E5BFF",
-        hardSm: "3px 3px 0 0 #2E5BFF",
-        hardLg: "10px 10px 0 0 #2E5BFF",
+        hard: "6px 6px 0 0 #2A52E8",
+        hardSm: "3px 3px 0 0 #2A52E8",
+        hardLg: "10px 10px 0 0 #2A52E8",
       },
       borderWidth: { 3: "3px" },
       keyframes: {

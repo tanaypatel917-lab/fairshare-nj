@@ -5,6 +5,9 @@ export function Reveal({ children, delay = 0, className = "" }: { children: Reac
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = ref.current; if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (el.getBoundingClientRect().top < window.innerHeight) { el.classList.add("is-in"); return; }
+    el.classList.add("reveal-hidden");
     const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add("is-in"); io.disconnect(); } }, { threshold: 0.15 });
     io.observe(el);
     const t = setTimeout(() => el.classList.add("is-in"), 1800);

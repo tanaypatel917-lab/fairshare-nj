@@ -7,6 +7,10 @@ const nextConfig = {
   basePath: base,
   assetPrefix: base || undefined,
   images: { unoptimized: true },
+  webpack(config) {
+    config.module.rules.push({ test: /\.geojson$/, type: "json" });
+    return config;
+  },
 };
 
 export default nextConfig;

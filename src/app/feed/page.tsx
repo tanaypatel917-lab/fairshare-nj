@@ -2,7 +2,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Ticket } from "@/components/Ticket";
-import { listings, matchListing, liveStatus, lastUpdated } from "@/lib/listings";
+import { listings, matchListing, liveStatus, lastUpdated, buildDate, fmtDate, isActive, type Match } from "@/lib/listings";
 import { useStore } from "@/lib/store";
 import { tierFor } from "@/lib/eligibility";
 import { money } from "@/lib/listings";
@@ -12,6 +12,7 @@ type F = "all" | "open" | "mine" | "watching" | "rent" | "buy";
 export default function Feed() {
   const { profile, hydrated, starred } = useStore();
   const [f, setF] = useState<F>("all");
+  const refreshedDate = buildDate();
   const rows = useMemo(() => {
     const ms = listings.map((l) => matchListing(l, profile));
     const rank = (k: string) => ({ closing: 0, open: 1, waitlist: 2, pipeline: 3, closed: 4 }[k] ?? 5);
@@ -19,33 +20,54 @@ export default function Feed() {
       .filter((m) => f === "all" || (f === "open" && liveStatus(m.listing).key !== "closed") || (f === "mine" && m.qualifies) || (f === "watching" && starred.includes(m.listing.id)) || (f === "rent" && m.listing.type === "rent") || (f === "buy" && m.listing.type === "buy"))
       .sort((a, b) => rank(liveStatus(a.listing).key) - rank(liveStatus(b.listing).key) || Number(b.qualifies) - Number(a.qualifies));
   }, [f, profile, starred]);
+  const tickets = rows.filter((m) => liveStatus(m.listing).key !== "closed");
+  const closed = rows.filter((m) => liveStatus(m.listing).key === "closed");
   if (!hydrated) return null;
   return (
     <div className="pt-5">
       <div className="px-5 flex items-end justify-between">
         <div>
-          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-mute">NJ-12 · updated {lastUpdated}</span>
+          <div className="font-mono text-[12px] uppercase tracking-normal text-mute">
+            <span className="block">NJ-12 · listings checked {lastUpdated}</span>
+            {refreshedDate && <span className="block">Statuses refreshed daily · last {fmtDate(refreshedDate)}</span>}
+          </div>
           <h1 className="font-display font-black text-[40px] leading-[0.9] tracking-[-0.03em] mt-1">Lotteries</h1>
         </div>
         {!profile && <Link href="/start" className="stamp bg-lime">Personalize</Link>}
       </div>
-      {profile && (() => { const t = tierFor(profile.county, profile.householdSize, profile.income); const n = listings.filter((l) => matchListing(l, profile).qualifies).length; return (
-        <Link href="/tier" className="mt-4 mx-5 flex items-center justify-between gap-3 border-3 border-ink bg-ink text-paper px-3 py-2.5 shadow-[4px_4px_0_0_#2E5BFF]">
-          <span className="font-mono text-[10px] uppercase tracking-[0.1em] whitespace-nowrap truncate">{profile.householdSize} ppl · {money(profile.income)} · {profile.county}</span>
-          <span className="font-display font-bold text-sm whitespace-nowrap">{t ? ({ veryLow: "Very-low", low: "Low", moderate: "Moderate", over: "Over" } as const)[t.tier] : "—"} · {n} match{n === 1 ? "" : "es"} →</span>
+      {profile && (() => { const t = tierFor(profile.county, profile.householdSize, profile.income); const n = listings.filter((l) => matchListing(l, profile).qualifies && isActive(l)).length; return (
+        <Link href="/tier" className="mt-4 mx-5 flex items-center justify-between gap-3 border-3 border-ink bg-ink text-paper px-3 py-2.5 shadow-[4px_4px_0_0_#2A52E8]">
+          <span className="font-mono text-[12px] uppercase tracking-[0.1em] whitespace-nowrap truncate">{profile.householdSize} ppl · {money(profile.income)} · {profile.county}</span>
+          <span className="font-display font-bold text-sm whitespace-nowrap">{t ? ({ veryLow: "Very-low", low: "Low", moderate: "Moderate", over: "Over" } as const)[t.tier] : "—"} · {n} match{n === 1 ? "" : "es"} <span aria-hidden="true">→</span></span>
         </Link>); })()}
       <div className="mt-4 px-5 flex gap-2 overflow-x-auto no-scrollbar">
         {(["all", "open", "mine", "watching", "rent", "buy"] as F[]).filter((k) => k !== "watching" || starred.length > 0).map((k) => (
-          <button key={k} onClick={() => setF(k)} className={`shrink-0 border-3 border-ink px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider ${f === k ? "bg-ink text-paper" : "bg-paper"}`}>{k === "mine" ? "I qualify" : k === "watching" ? `★ ${starred.length}` : k}</button>
+          <button key={k} onClick={() => setF(k)} aria-label={k === "watching" ? `${starred.length} starred lotteries` : undefined} className={`shrink-0 border-3 border-ink px-3 py-1.5 font-mono text-[12px] uppercase tracking-normal ${f === k ? "bg-ink text-paper" : "bg-paper"}`}>{k === "mine" ? "I qualify" : k === "watching" ? <><span aria-hidden="true">★ </span>{starred.length}</> : k}</button>
         ))}
       </div>
       <div className="mt-5 px-5 space-y-5">
-        {rows.map((m, i) => <Ticket key={m.listing.id} m={m} index={i} anon={!profile} />)}
+        {tickets.map((m, i) => <Ticket key={m.listing.id} m={m} index={i} anon={!profile} />)}
+        {closed.length > 0 && (
+          <details className="border-t-3 border-ink pt-3">
+            <summary className="cursor-pointer font-mono text-[12px] uppercase tracking-normal">Recently closed · {closed.length}</summary>
+            <ul className="mt-2 divide-y-2 divide-ink/25 border-t-2 border-ink/25">
+              {closed.map(({ listing: l }: Match) => (
+                <li key={l.id}>
+                  <Link href={`/listing/${l.id}`} className="flex items-center gap-2 py-2 font-mono text-[12px] leading-tight">
+                    <span className="min-w-0 flex-1 truncate">{l.name}</span>
+                    <span className="max-w-[78px] truncate text-mute">{l.town}</span>
+                    <span className="shrink-0 text-mute">closed {l.deadline ? new Date(`${l.deadline}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "recently"}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
         {rows.length === 0 && f === "mine" && !profile && (
           <div className="border-3 border-ink bg-lime text-paper p-5 shadow-hard">
             <p className="font-display font-black text-2xl leading-none">Tell us four things.</p>
             <p className="mt-2 text-sm leading-snug">Household size, income, county, rent or buy — then this tab shows only the lotteries you likely qualify for.</p>
-            <Link href="/start" className="btn btn-dark mt-4 inline-block">Check my tier →</Link>
+            <Link href="/start" className="btn btn-dark mt-4 inline-block">Check my tier <span aria-hidden="true">→</span></Link>
           </div>
         )}
         {rows.length === 0 && !(f === "mine" && !profile) && (
@@ -56,7 +78,7 @@ export default function Feed() {
           </div>
         )}
       </div>
-      <p className="mt-8 px-5 font-mono text-[10px] text-mute leading-relaxed">FairShare routes you to each development&apos;s official administrative agent. It never submits applications and never stores your answers off-device.</p>
+      <p className="mt-8 px-5 font-mono text-[12px] text-mute leading-relaxed">FairShare routes you to each development&apos;s official administrative agent. It never submits applications and never stores your answers off-device.</p>
     </div>
   );
 }
