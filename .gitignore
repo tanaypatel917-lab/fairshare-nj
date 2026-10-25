@@ -8,6 +8,7 @@
 
 # testing
 /coverage
+/.watch-state/
 
 # next.js
 /.next/

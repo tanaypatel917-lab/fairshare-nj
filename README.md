@@ -17,6 +17,10 @@ Everything is local-first: no backend, no account, nothing leaves the phone. Ins
 
 Pushes to `main` build a static export and publish it to GitHub Pages via `.github/workflows/pages.yml`: https://tanaypatel917-lab.github.io/fairshare-nj/
 
+## Keeping listings current
+
+The Pages workflow rebuilds the site daily so deadline statuses and the landing-page radar stay current. A separate daily watcher checks official lottery indexes and the sources linked from listings, then posts detected changes to a GitHub issue labeled `lottery-watch`. The watcher flags possible updates; a person verifies the official source and adds new listings to the data file.
+
 ## Run
 ```bash
 npm install
