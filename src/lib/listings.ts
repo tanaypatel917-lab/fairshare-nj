@@ -8,6 +8,7 @@ export type Listing = {
   type: "rent" | "buy"; agent: string; applyUrl: string; units: Unit[]; totalUnits: number | null;
   deadline: string | null; drawingDate: string | null; status: "open" | "closed" | "waitlist" | "pipeline";
   moveIn: string | null; notes: string; sources: string[]; lastChecked: string;
+  nearDistrict?: boolean;
   restrictions?: { seniorOnly?: boolean; veteranPreference?: boolean; accessibleUnits?: boolean };
 };
 
@@ -15,6 +16,7 @@ export const listings = (data as { listings: Listing[] }).listings;
 export const lastUpdated = (data as { lastUpdated: string }).lastUpdated;
 export const buildDate = (): string | null => process.env.NEXT_PUBLIC_BUILD_DATE || null;
 export const byId = (id: string) => listings.find((l) => l.id === id);
+export const inDistrict = (ls: Listing[]) => ls.filter((l) => !l.nearDistrict);
 
 export function daysUntil(iso: string | null, now = new Date()): number | null {
   if (!iso) return null;

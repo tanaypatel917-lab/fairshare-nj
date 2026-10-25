@@ -1,28 +1,30 @@
 import Link from "next/link";
-import { listings, money, isActive, pickHero, cheapestPrice, lowestRent } from "@/lib/listings";
-import { districtOwed, districtSeen } from "@/lib/towns";
+import { listings, money, isActive, pickHero, cheapestPrice, lowestRent, inDistrict, liveStatus } from "@/lib/listings";
+import { districtOwed, districtSeen, districtTownCount } from "@/lib/towns";
 import { CountUp } from "@/components/CountUp";
 import { Reveal } from "@/components/Reveal";
 import { LiveStatus } from "@/components/LiveStatus";
 
 export default function Landing() {
+  const districtListings = inDistrict(listings);
   const owed = districtOwed();
   const seen = districtSeen(listings);
-  const open = listings.filter((l) => isActive(l)).length;
-  const heroPick = pickHero(listings);
+  const townCount = districtTownCount();
+  const open = districtListings.filter((l) => isActive(l)).length;
+  const heroPick = pickHero(districtListings);
   const hero = heroPick.listing;
   const heroPrice = cheapestPrice(hero);
-  const rentFloor = lowestRent(listings);
+  const rentFloor = lowestRent(districtListings);
   const heroTiers = Array.from(new Set(hero.units.map((u) => ({ veryLow: "very-low", low: "low", moderate: "moderate" } as const)[u.tier]))).join(" / ");
   const heroBr = Array.from(new Set(hero.units.map((u) => u.bedrooms))).sort().join(" · ");
   const seenPct = owed ? (seen / owed) * 100 : 0;
   const marquee = [
-    ...listings.map((l) => {
+    ...districtListings.filter((l) => liveStatus(l).key !== "closed").map((l) => {
       const price = cheapestPrice(l);
       const units = l.totalUnits == null ? "" : ` · ${l.totalUnits} ${l.type === "rent" ? "apts" : "homes"}`;
       return `${l.name}${units}${price == null ? "" : ` from ${money(price)}`}`;
     }),
-    `${owed} homes owed in 32 towns`,
+    `${owed} homes owed in ${townCount} towns`,
     "UHAC 2025 limits loaded",
   ].join(" · ");
   return (
@@ -70,7 +72,7 @@ export default function Landing() {
 
       <section className={`px-5 mt-8 grid ${rentFloor == null ? "grid-cols-2" : "grid-cols-3"} gap-3`}>
         <Reveal><div className="border-3 border-ink p-2 bg-paper shadow-hardSm h-full"><div className="font-display font-black text-[30px] leading-none"><CountUp to={open} /></div><div className="font-mono text-[12px] uppercase tracking-[-0.08em] whitespace-nowrap mt-1">accepting now</div><div className="font-serif italic text-sm text-mute">lotteries & lists</div></div></Reveal>
-        <Reveal delay={80}><div className="border-3 border-ink p-2 bg-paper shadow-hardSm h-full"><div className="font-display font-black text-[30px] leading-none"><CountUp to={owed} /></div><div className="font-mono text-[12px] uppercase tracking-[-0.08em] whitespace-nowrap mt-1">owed</div><div className="font-serif italic text-sm text-mute">new homes, 32 towns</div></div></Reveal>
+        <Reveal delay={80}><div className="border-3 border-ink p-2 bg-paper shadow-hardSm h-full"><div className="font-display font-black text-[30px] leading-none"><CountUp to={owed} /></div><div className="font-mono text-[12px] uppercase tracking-[-0.08em] whitespace-nowrap mt-1">owed</div><div className="font-serif italic text-sm text-mute">new homes, {townCount} towns</div></div></Reveal>
         {rentFloor != null && <Reveal delay={160}><div className="border-3 border-ink p-2 bg-paper shadow-hardSm h-full"><div className="font-display font-black text-[30px] leading-none"><CountUp to={rentFloor} prefix="$" /></div><div className="font-mono text-[12px] uppercase tracking-[-0.08em] whitespace-nowrap mt-1">/mo</div><div className="font-serif italic text-sm text-mute">lowest rent seen</div></div></Reveal>}
       </section>
 

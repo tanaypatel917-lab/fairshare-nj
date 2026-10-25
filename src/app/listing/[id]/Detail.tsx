@@ -38,6 +38,7 @@ export function Detail({ l }: { l: Listing }) {
         <span className={`font-mono text-[12px] uppercase tracking-[0.14em] px-1.5 py-0.5 border-2 border-ink ${tone[s.tone]}`}>{s.label}</span>
         <h1 className="mt-3 font-display font-black text-[44px] leading-[0.9] tracking-[-0.03em]">{l.name}</h1>
         <p className="font-serif italic text-xl text-ink2 mt-2">{l.town}, {l.county} County</p>
+        {l.nearDistrict && <span className="mt-2 inline-block border border-ink/40 px-1.5 py-0.5 font-mono text-[12px] uppercase tracking-[0.14em] text-mute">Just outside NJ-12</span>}
         <p className="mt-3 text-ink2 leading-snug">{l.notes}</p>
         {m.perks.length > 0 && <div className="mt-3 flex flex-wrap gap-1.5">{m.perks.map((perk) => <span key={perk} className="border-2 border-ink bg-lime px-1.5 py-0.5 font-mono text-[12px] leading-none">{perk}</span>)}</div>}
       </div>

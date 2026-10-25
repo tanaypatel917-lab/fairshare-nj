@@ -17,3 +17,7 @@ export function districtSeen(ls: Listing[]): number {
 export function districtOwed(): number {
   return townData.towns.reduce((total, town) => total + town.prospective, 0);
 }
+
+export function districtTownCount(): number {
+  return townData.towns.length;
+}

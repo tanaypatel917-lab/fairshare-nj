@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cheapestPrice, listings, isActive, liveStatus, lowestRent, matchListing, pickHero, type Listing } from "../src/lib/listings";
+import { cheapestPrice, listings, isActive, inDistrict, liveStatus, lowestRent, matchListing, pickHero, type Listing } from "../src/lib/listings";
 import type { Profile } from "../src/lib/store";
 
 const now = new Date("2026-01-01T12:00:00");
@@ -112,10 +112,17 @@ describe("listing status and hero selection", () => {
     expect(result.kicker).toBe("Recently closed");
   });
 
-  it("selects the verified East Windsor lottery as the October 25 hero", () => {
-    const result = pickHero(listings, new Date("2026-10-25T12:00:00"));
-    expect(result.listing.id).toBe("place-at-east-windsor-2026");
-    expect(result.kicker).toBe("Closing soon");
+  it("selects the in-district waiting list as the October 25 hero", () => {
+    const result = pickHero(inDistrict(listings), new Date(2026, 9, 25, 12));
+    expect(result.listing.id).toBe("oakwood-park-sb-2026");
+    expect(result.kicker).toBe("Waiting list open");
+  });
+});
+
+describe("district listing scope", () => {
+  it("excludes listings marked near the district", () => {
+    const rows = [fixture(), fixture({ id: "near", nearDistrict: true })];
+    expect(inDistrict(rows).map((listing) => listing.id)).toEqual(["fixture"]);
   });
 });
 
