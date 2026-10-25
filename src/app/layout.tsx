@@ -25,15 +25,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={`${display.variable} ${body.variable} ${serif.variable} ${mono.variable}`}>
       <body className="grain min-h-dvh sm:bg-ink sm:bg-[radial-gradient(rgba(14,15,18,0.18)_1px,transparent_1px)] sm:[background-size:18px_18px]">
         <div className="hidden lg:flex fixed inset-y-0 left-0 w-[calc(50vw-240px)] flex-col justify-between p-10 text-paper select-none pointer-events-none">
-          <div className="font-mono text-[11px] uppercase tracking-[0.22em] opacity-70">Congressional App Challenge · NJ-12 · 2026</div>
+          <div className="font-mono text-[12px] uppercase tracking-[0.22em] opacity-70">Congressional App Challenge · NJ-12 · 2026</div>
           <div>
-            <div className="font-display font-black text-[72px] leading-[0.85] tracking-[-0.04em]">Fair<br />Share<span className="text-orange">NJ</span></div>
+            <div className="font-display font-black text-[72px] leading-[0.85] tracking-[-0.04em]">Fair<br />Share<span className="text-accentInk">NJ</span></div>
             <p className="mt-6 font-serif italic text-2xl max-w-[26ch] opacity-90">Every affordable-housing lottery in New Jersey&apos;s 12th District, one radar.</p>
           </div>
-          <div className="font-mono text-[11px] uppercase tracking-[0.22em] opacity-70">Open on your phone · installs as an app</div>
+          <div className="font-mono text-[12px] uppercase tracking-[0.22em] opacity-70">Open on your phone · installs as an app</div>
         </div>
-        <div className="hidden lg:block fixed right-10 bottom-10 text-paper font-mono text-[11px] uppercase tracking-[0.22em] opacity-70 [writing-mode:vertical-rl] rotate-180">UHAC 2025 · DCA Round 4 · Local-first</div>
-        <div className="mx-auto min-h-dvh w-full max-w-[480px] sm:border-x-3 sm:border-ink bg-paper relative sm:shadow-[0_0_0_1px_rgba(14,15,18,0.2),24px_24px_0_0_#2E5BFF] sm:my-0">
+        <div className="hidden lg:block fixed right-10 bottom-10 text-paper font-mono text-[12px] uppercase tracking-[0.22em] opacity-70 [writing-mode:vertical-rl] rotate-180">UHAC 2025 · DCA Round 4 · Local-first</div>
+        <div className="mx-auto min-h-dvh w-full max-w-[480px] sm:border-x-3 sm:border-ink bg-paper relative sm:shadow-[0_0_0_1px_rgba(14,15,18,0.2),24px_24px_0_0_#2A52E8] sm:my-0">
           <main className="pb-28 min-h-dvh"><PageEnter>{children}</PageEnter></main>
           <Nav />
         </div>

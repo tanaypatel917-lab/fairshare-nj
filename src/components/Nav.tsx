@@ -20,7 +20,7 @@ export function Nav() {
           const active = path.startsWith(it.href);
           return (
             <li key={it.href} className="border-r-3 border-ink last:border-r-0">
-              <Link href={it.href} aria-current={active ? "page" : undefined} className={`relative flex flex-col items-center gap-0.5 py-2.5 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors duration-200 ${active ? "bg-ink text-paper" : "text-ink hover:bg-paper2 active:bg-paper2"}`}>
+              <Link href={it.href} aria-current={active ? "page" : undefined} className={`relative flex flex-col items-center gap-0.5 py-2.5 font-mono text-[12px] uppercase tracking-normal whitespace-nowrap leading-none transition-colors duration-200 ${active ? "bg-ink text-paper" : "text-ink hover:bg-paper2 active:bg-paper2"}`}>
                 {active && <span aria-hidden className="absolute -top-[3px] left-0 right-0 h-[3px] bg-orange" />}
                 <span className="text-lg leading-none" aria-hidden>{it.glyph}</span>
                 {it.label}

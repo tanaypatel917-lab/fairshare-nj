@@ -20,7 +20,7 @@ export default function Start() {
       <div>
         <div className="flex items-end gap-1"><span className="font-display font-black text-3xl">$</span><input inputMode="numeric" className="field" value={p.income.toLocaleString("en-US")} onChange={(e) => setP({ ...p, income: Number(e.target.value.replace(/[^0-9]/g, "")) || 0 })} /></div>
         <input type="range" min={0} max={200000} step={1000} value={p.income} onChange={(e) => setP({ ...p, income: Number(e.target.value) })} className="w-full mt-4 accent-orange" aria-label="Household income" />
-        <div className="mt-3 flex gap-2 overflow-x-auto no-scrollbar">{[30000, 45000, 60000, 80000, 100000].map((n) => <button key={n} onClick={() => setP({ ...p, income: n })} className={`shrink-0 border-2 border-ink px-2.5 py-1 font-mono text-[11px] ${p.income === n ? "bg-ink text-paper" : "bg-paper"}`}>${n / 1000}k</button>)}</div>
+        <div className="mt-3 flex gap-2 overflow-x-auto no-scrollbar">{[30000, 45000, 60000, 80000, 100000].map((n) => <button key={n} onClick={() => setP({ ...p, income: n })} className={`shrink-0 border-2 border-ink px-2.5 py-1 font-mono text-[12px] ${p.income === n ? "bg-ink text-paper" : "bg-paper"}`}>${n / 1000}k</button>)}</div>
         <p className="mt-3 font-serif italic text-ink2">About <b className="num not-italic font-display">{money(Math.round(p.income / 12))}</b> a month, or <b className="num not-italic font-display">{money(Math.round(p.income / 52))}</b> a week.</p>
       </div>) },
     { q: "Where do you want to live?", sub: "Income limits are set per county region.", body: (
@@ -29,7 +29,7 @@ export default function Start() {
       <div className="space-y-3">
         <div className="grid grid-cols-3 gap-2">{(["rent", "buy", "any"] as const).map((t) => <button key={t} onClick={() => setP({ ...p, type: t })} className={`border-3 border-ink py-3 font-display font-bold uppercase ${p.type === t ? "bg-ink text-paper" : "bg-paper"}`}>{t}</button>)}</div>
         <div className="grid grid-cols-4 gap-2">{[1,2,3,4].map((n) => <button key={n} onClick={() => setP({ ...p, bedrooms: n })} className={`border-3 border-ink py-3 font-display font-bold ${p.bedrooms === n ? "bg-ink text-paper" : "bg-paper"}`}>{n} BR</button>)}</div>
-        <div className="grid grid-cols-3 gap-2">{(Object.keys(p.prefs) as (keyof Profile["prefs"])[]).map((k) => <button key={k} onClick={() => setP({ ...p, prefs: { ...p.prefs, [k]: !p.prefs[k] } })} className={`border-3 border-ink py-2 font-mono text-[11px] uppercase ${p.prefs[k] ? "bg-lime" : "bg-paper"}`}>{k === "senior" ? "55+" : k}</button>)}</div>
+        <div className="grid grid-cols-3 gap-2">{(Object.keys(p.prefs) as (keyof Profile["prefs"])[]).map((k) => <button key={k} onClick={() => setP({ ...p, prefs: { ...p.prefs, [k]: !p.prefs[k] } })} className={`border-3 border-ink py-2 font-mono text-[12px] uppercase ${p.prefs[k] ? "bg-lime" : "bg-paper"}`}>{k === "senior" ? "55+" : k}</button>)}</div>
       </div>) },
   ];
   const last = step === steps.length - 1;
@@ -38,23 +38,23 @@ export default function Start() {
   return (
     <div className="min-h-dvh flex flex-col px-5 pt-5">
       <div className="flex items-center justify-between">
-        <button onClick={() => (step ? setStep(step - 1) : router.push("/"))} className="font-mono text-[11px] uppercase tracking-widest">← Back</button>
+        <button onClick={() => (step ? setStep(step - 1) : router.push("/"))} className="font-mono text-[12px] uppercase tracking-widest">← Back</button>
         <div className="flex gap-1">{steps.map((_, i) => <span key={i} className={`h-2 w-6 border-2 border-ink ${i <= step ? "bg-ink" : ""}`} />)}</div>
       </div>
       <div key={step} className="mt-10 animate-rise">
-        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-mute">Step {step + 1} of {steps.length}</span>
+        <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-mute">Step {step + 1} of {steps.length}</span>
         <h1 className="mt-2 font-display font-black text-[38px] leading-[0.95]">{steps[step].q}</h1>
         <p className="mt-3 font-serif italic text-lg text-ink2">{steps[step].sub}</p>
         <div className="mt-8">{steps[step].body}</div>
       </div>
       <div className="mt-auto pt-8">
         <div className="border-3 border-ink border-dashed p-3 flex items-center justify-between gap-3 bg-paper/60">
-          <div className="font-mono text-[10px] uppercase tracking-[0.14em] leading-relaxed text-ink2">{p.householdSize}{p.householdSize === 8 ? "+" : ""} people · {money(p.income)} · {p.county}{step >= 3 ? ` · ${p.type} · ${p.bedrooms}BR` : ""}</div>
+          <div className="font-mono text-[12px] uppercase tracking-[0.14em] leading-relaxed text-ink2">{p.householdSize}{p.householdSize === 8 ? "+" : ""} people · {money(p.income)} · {p.county}{step >= 3 ? ` · ${p.type} · ${p.bedrooms}BR` : ""}</div>
           {live && step >= 1 && <span key={live.tier} className={`stamp stamp-in shrink-0 ${live.tier === "over" ? "" : "bg-lime"}`}>{tierWord}</span>}
         </div>
       </div>
       <div className="pb-8 pt-4">
-        <button className="btn btn-orange w-full text-lg py-4" onClick={() => { if (last) { setProfile(p); router.push("/tier"); } else setStep(step + 1); }}>{last ? "See my tier →" : "Next →"}</button>
+        <button className="btn btn-orange w-full text-lg py-4" onClick={() => { if (last) { setProfile(p); router.push("/tier"); } else setStep(step + 1); }}>{last ? <>See my tier <span aria-hidden="true">→</span></> : <>Next <span aria-hidden="true">→</span></>}</button>
       </div>
     </div>
   );
