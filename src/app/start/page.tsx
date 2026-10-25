@@ -6,12 +6,18 @@ import { tierFor } from "@/lib/eligibility";
 import { money } from "@/lib/listings";
 
 const counties: Profile["county"][] = ["Middlesex", "Mercer", "Somerset", "Union"];
+const DEFAULT_PROFILE: Profile = { householdSize: 3, income: 58000, county: "Middlesex", bedrooms: 2, type: "any", prefs: { senior: false, veteran: false, accessible: false }, lang: "en" };
 
 export default function Start() {
-  const { setProfile, profile } = useStore();
+  const { profile, hydrated, setProfile } = useStore();
+  if (!hydrated) return <div className="min-h-dvh" />;
+  return <StartForm initial={profile} onSave={setProfile} />;
+}
+
+function StartForm({ initial, onSave }: { initial: Profile | null; onSave: (p: Profile) => void }) {
   const router = useRouter();
   const [step, setStep] = useState(0);
-  const [p, setP] = useState<Profile>(profile ?? { householdSize: 3, income: 58000, county: "Middlesex", bedrooms: 2, type: "any", prefs: { senior: false, veteran: false, accessible: false }, lang: "en" });
+  const [p, setP] = useState<Profile>(initial ?? DEFAULT_PROFILE);
 
   const steps = [
     { q: "How many people live with you?", sub: "Count everyone who will live in the home, including kids.", body: (
@@ -54,7 +60,7 @@ export default function Start() {
         </div>
       </div>
       <div className="pb-8 pt-4">
-        <button className="btn btn-orange w-full text-lg py-4" onClick={() => { if (last) { setProfile(p); router.push("/tier"); } else setStep(step + 1); }}>{last ? <>See my tier <span aria-hidden="true">→</span></> : <>Next <span aria-hidden="true">→</span></>}</button>
+        <button className="btn btn-orange w-full text-lg py-4" onClick={() => { if (last) { onSave(p); router.push("/tier"); } else setStep(step + 1); }}>{last ? <>See my tier <span aria-hidden="true">→</span></> : <>Next <span aria-hidden="true">→</span></>}</button>
       </div>
     </div>
   );

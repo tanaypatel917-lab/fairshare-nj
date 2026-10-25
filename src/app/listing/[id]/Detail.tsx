@@ -73,7 +73,7 @@ export function Detail({ l }: { l: Listing }) {
       <div className="px-5 mt-6 grid gap-3">
         <a href={l.applyUrl} target="_blank" rel="noreferrer" className="btn btn-orange text-lg py-4">Apply on the agent&apos;s site <span aria-hidden="true">↗</span></a>
         <div className={`grid ${s.key === "closed" ? "grid-cols-1" : "grid-cols-2"} gap-3`}>
-          {s.key !== "closed" && <button onClick={() => { downloadIcs(l); setAdded(true); setTimeout(() => setAdded(false), 2500); }} className={`btn text-sm whitespace-nowrap ${added ? "bg-lime text-ink" : "btn-light"}`}>{added ? <><span aria-hidden="true">✓ </span>Reminder saved</> : l.deadline ? "+ Remind me" : "+ Check back in 2 weeks"}</button>}
+          {s.key !== "closed" && <button onClick={() => { downloadIcs(l); setAdded(true); setTimeout(() => setAdded(false), 2500); }} className={`btn text-sm whitespace-nowrap ${added ? "bg-lime text-ink" : "btn-light"}`}>{added ? <><span aria-hidden="true">✓ </span>Reminder saved</> : l.deadline ? "+ Remind me" : "+ 2-week reminder"}</button>}
           <Link href="/checklist" className="btn btn-light text-sm whitespace-nowrap">Documents</Link>
         </div>
       </div>
